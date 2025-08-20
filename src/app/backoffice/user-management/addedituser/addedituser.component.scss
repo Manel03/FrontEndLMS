@@ -1,0 +1,104 @@
+.add-edit-user-container {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: auto;
+    text-align: center;
+    .p-error {
+      color: #f44336; // Rouge
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
+    }
+    h2 {
+      color: #333;
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+    }
+  
+    .form-group {
+      margin-bottom: 1.2rem;
+      text-align: left;
+  
+      label {
+        font-weight: 600;
+        color: #444;
+        display: block;
+        margin-bottom: 0.4rem;
+      }
+  
+      input {
+        width: 100%;
+        padding: 0.8rem;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+  
+        &:focus {
+          border-color: #009752;
+          box-shadow: 0 0 5px rgba(156, 255, 153, 0.7);
+          outline: none;
+        }
+      }
+    }
+  
+    .p-checkbox .p-checkbox-box {
+        border-color: #4CAF50 !important; // Vert au lieu de bleu
+      
+        &.p-highlight {
+          background: #4CAF50 !important; // Couleur verte quand activé
+          border-color: #4CAF50 !important;
+        }
+      }
+      
+      .p-checkbox .p-checkbox-box:hover {
+        border-color: #45a049 !important; // Légèrement plus foncé au survol
+      }
+      
+  
+   
+    .button-group {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem; // Ajout d’un espace entre les boutons
+      margin-top: 1.5rem;
+    
+      button {
+        flex: 1;
+        padding: 0.8rem;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+      }
+    
+      .p-button-success {
+        background: linear-gradient(to right, #009752, #6E6B71);
+        border: none;
+        color: white;
+        font-weight: 600;
+    
+        &:hover {
+          background: linear-gradient(to right, #009752, #009752);
+        }
+      }
+    
+      .p-button-secondary {
+        background: #ccc;
+        border: none;
+        color: black;
+        font-weight: 600;
+    
+        &:hover {
+          background: #b3b3b3;
+        }
+      }
+    }
+  }
+  ::ng-deep .action-buttons {
+    display: flex;
+    flex-direction: column; // les boutons s'empilent verticalement
+    align-items: center;
+    gap: 6px;
+  }

@@ -1,0 +1,50 @@
+<div class="formation-wrapper">
+<div *ngIf="formation" class="formation-detail">
+    <div class="header">
+      <h2>{{ formation.formationNom }}</h2>
+    </div>
+    <div class="content">
+      <img [src]="getImageUrl(formation.image)" alt="Image Formation" class="formation-image" />
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="label">Description</span>
+          <p>{{ formation.description }}</p>
+        </div>
+        <div class="info-item">
+          <span class="label">Dates</span>
+          <p>Du {{ formation.dateDebut | date: 'dd/MM/yyyy' }} au {{ formation.dateFin | date: 'dd/MM/yyyy' }}</p>
+        </div>
+        <div class="info-item">
+          <span class="label">Horaires</span>
+          <p>{{ formation.heureDebut }} - {{ formation.heureFin }}</p>
+        </div>
+        <div class="info-item">
+          <span class="label">Formateur</span>
+          <p>{{ formation.formateur }}</p>
+        </div>
+        <div class="info-item">
+          <span class="label">Catégorie</span>
+          <p>{{ formation.categorie }}</p>
+        </div>
+       
+        <div class="info-item">
+          <span class="label">Lieu</span>
+          <p>{{ formation.endroit }}</p>
+        </div>
+        <div class="info-item">
+          <span class="label">Certifiante</span>
+          <p>{{ formation.certifiante ? 'Oui' : 'Non' }}</p>
+        </div>
+        <div class="info-item">
+          <span class="label">Places disponibles</span>
+          <p>{{ formation.placesDisponibles }}</p>
+        </div>
+        <div class="info-item">
+          <span class="label">Participants</span>
+          <p>{{ formation.nbParticipants }}</p>
+        </div>
+      </div>
+      <button class="back-button" routerLink="/back-office/formation-list" >Back to List</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,161 @@
+::ng-deep .p-dialog .p-dialog-content {
+  padding-top: 1.5rem;
+}
+
+::ng-deep .p-dialog .p-field label {
+  font-weight: bold;
+}
+// Appliquer le style personnalisé au tableau PrimeNG
+:host ::ng-deep .p-datatable {
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #000000;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+  .p-datatable-wrapper {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+  }
+
+  .p-datatable-thead > tr > th {
+    background-color: #046936;
+    color: #ffffff;
+    font-weight: bold;
+    text-align: center;
+    padding: 12px;
+  }
+
+  .p-datatable-tbody > tr > td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .p-datatable-tbody > tr:hover {
+    background-color: #e6e6e6;
+  }
+}
+
+// Supprimer les bordures en double dans les lignes (striped)
+:host ::ng-deep .p-datatable-striped .p-datatable-tbody > tr {
+  border-bottom: none !important;
+}
+
+:host ::ng-deep .p-datatable-striped .p-datatable-tbody > tr td {
+  border-bottom: none !important;
+}
+
+// Boutons d'action dans les colonnes (empilés verticalement si souhaité)
+:host ::ng-deep .action-buttons {
+  display: flex;
+  gap: 4px; // espace horizontal entre les boutons
+   flex-direction: row;
+  align-items: center;
+  
+}
+
+// Style des boutons PrimeNG
+:host ::ng-deep .p-button {
+  background-color: #007b3e !important;
+  border: none !important;
+  color: #fff !important;
+}
+
+:host ::ng-deep .p-button:hover {
+  background-color: #000000 !important;
+  color: #fff !important;
+}
+
+// Titre de la section
+.header-title {
+  margin-bottom: 20px;
+  h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #000000;
+    text-transform: uppercase;
+    border-left: 5px solid #000;
+    padding-left: 10px;
+  }
+}
+::ng-deep .p-dialog {
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+::ng-deep .p-dialog .p-dialog-header {
+  background: linear-gradient(to right, #007b3e, #007b3e);
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #ffffff;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+}
+
+.form-group {
+  margin-bottom: 1.2rem;
+
+  label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+    color: #333;
+  }
+
+  input[readonly], textarea[readonly] {
+    background-color: #f7f7f7;
+    border: 1px solid #ccc;
+    padding: 0.6rem;
+    border-radius: 6px;
+    width: 100%;
+  }
+
+  .p-inputtext {
+    width: 100%;
+    padding: 0.6rem;
+    border-radius: 6px;
+    border: 1px solid #d0d0d0;
+  }
+
+  textarea.p-inputtext {
+    resize: vertical;
+  }
+
+  .p-field-radiobutton {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+
+    label {
+      margin-left: 0.5rem;
+      font-weight: normal;
+    }
+  }
+}
+
+p-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+
+  button {
+    background-color: #99cdff;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: background 0.3s ease;
+
+    &:hover {
+      background-color: #7ab8f5;
+    }
+
+    i.pi {
+      margin-right: 0.5rem;
+    }
+  }
+}

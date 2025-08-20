@@ -1,0 +1,203 @@
+.banner-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  height: 350px;
+}
+
+.banner-image {
+  width: 100%;
+  height: 100%;
+  position: relative;
+
+  img {
+    width: 100vw; // correspond à toute la largeur de la fenêtre
+    height: 100%;
+    object-fit: cover;
+    animation: slidePan 20s ease-in-out infinite alternate;
+  }
+
+  .banner-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+
+    .title-small {
+      font-size: 32px;
+      letter-spacing: 4px;
+      font-weight: 400;
+      margin: 0;
+      text-transform: uppercase;
+      font-family: 'Helvetica Neue', sans-serif;
+    }
+
+    .title-big {
+      font-size: 60px;
+      font-weight: 700;
+      margin: 10px 0 0;
+      font-family: 'Arial Black', 'Segoe UI', sans-serif;
+    }
+  }
+}
+
+
+.formation-section {
+  text-align: center;
+  margin: 50px auto;
+  max-width: 900px;
+
+  .formation-title {
+    font-size: 48px;
+    font-weight: 700;
+    color: #2b2b2b;
+    margin-bottom: 10px;
+    position: relative;
+    display: inline-block;
+
+    &::after {
+      content: '';
+      display: block;
+      width: 600px;
+      height: 4px;
+      background: linear-gradient(90deg, #00796b, #1a9709);
+      margin: 20px auto 0;
+      border-radius: 2px;
+    }
+  }
+
+  .formation-subtitle {
+    font-size: 18px;
+    color: #666;
+    margin-top: 10px;
+    font-style: italic;
+  }
+}
+.section-header {
+  font-size: 36px;
+  font-weight: 600;
+  text-align: center;
+  color:#2b2b2b;
+  margin-bottom: 30px;
+  position: relative;
+  font-family: 'Segoe UI', sans-serif;
+
+  &::after {
+    content: '';
+    display: block;
+    width: 120px;
+    height: 4px;
+    background: linear-gradient(90deg, #00796b, #4caf50);
+    margin: 12px auto 0;
+    border-radius: 2px;
+  }
+}
+@keyframes slidePan {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-2%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.progression-container {
+  padding: 2rem 1rem;
+  background-color: #f6f9fc;
+  text-align: center;
+}
+
+.progression-title {
+  font-size: 2rem;
+  color: #004a84;
+  margin-bottom: 2rem;
+}
+
+.progression-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 2rem;
+  justify-items: center;
+  align-items: center;
+}
+
+.progression-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.circle-wrapper {
+  width: 140px;
+  height: 150px;
+}
+
+.circular-chart {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.circle-bg {
+  fill: none;
+  stroke: #eeeeee;
+  stroke-width: 4;
+}
+
+.circle {
+  fill: none;
+  stroke: #4caf50;
+  stroke-width: 4;
+  stroke-linecap: round;
+  transition: stroke-dasharray 0.6s ease-out;
+}
+
+.percentage {
+  fill: #333;
+  font-size: 0.4rem;
+  font-weight: bold;
+  transform: rotate(90deg);
+  transform-origin: center;
+}
+
+.formation-label {
+  margin-top: 0.7rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #222;
+  text-align: center;
+  max-width: 120px;
+  line-height: 1.2;
+}
+
+.no-progression {
+  font-style: italic;
+  color: #777;
+  margin-top: 2rem;
+}
+
+.section-header {
+  font-size: 36px;
+  font-weight: 600;
+  text-align: center;
+  color:#2b2b2b;
+  margin-bottom: 30px;
+  position: relative;
+  font-family: 'Segoe UI', sans-serif;
+
+  &::after {
+    content: '';
+    display: block;
+    width: 450px;
+    height: 4px;
+    background: linear-gradient(90deg, #00796b, #4caf50);
+    margin: 14px auto 0;
+    border-radius: 2px;
+  }
+}

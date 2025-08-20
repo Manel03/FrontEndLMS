@@ -1,0 +1,105 @@
+<div class="page-container">
+  <div class="title-container">
+    <img src="assets/images/backgrounds/book.gif" alt="Formation GIF" class="title-gif" />
+    <h2>{{ isEditMode ? 'Modifier une formation' : 'Ajouter une formation' }}</h2>
+  </div>
+  
+    <form [formGroup]="formationForm" (ngSubmit)="saveFormation()">
+  
+      <div class="form-group">
+        <label>Nom de la formation</label>
+        <input type="text" formControlName="formationNom" class="p-inputtext p-component" />
+      </div>
+  
+      <div class="form-group">
+        <label>Image</label>
+        <input type="file" (change)="uploadFile($event)" class="file-input" />
+      </div>
+  
+      <div class="form-group">
+        <label>Description</label>
+        <textarea formControlName="description" rows="4" class="p-inputtext p-component"></textarea>
+      </div>
+  
+      <div class="form-group">
+        <label>Date début</label>
+        <input type="date" formControlName="dateDebut" class="p-inputtext p-component" />
+      </div>
+  
+      <div class="form-group">
+        <label>Date fin</label>
+        <input type="date" formControlName="dateFin" class="p-inputtext p-component" />
+      </div>
+      <div class="form-group">
+        <label>Référence</label>
+        <input type="text" formControlName="reference" class="p-inputtext p-component" />
+      </div>
+
+      
+
+      
+      <div class="form-group">
+        <label>Heure début</label>
+        <input type="time" formControlName="heureDebut" />
+      </div>
+  
+      <div class="form-group">
+        <label>Heure fin</label>
+        <input type="time" formControlName="heureFin" />
+      </div>
+  
+     
+  
+     
+  
+      <div class="form-group">
+        <label>Durée (en heures)</label>
+        <input type="number" formControlName="duree" />
+      </div>
+      <div class="form-group">
+        <label>Catégorie</label>
+        <select formControlName="categorie" class="p-inputtext p-component">
+          <option *ngFor="let categorie of categorieOptions" [value]="categorie">{{ categorie }}</option>
+        </select>
+      </div>
+     
+      
+      <div class="form-group">
+        <label>Formateur</label>
+        <input type="text" formControlName="formateur" />
+      </div>
+  
+      <div class="form-group">
+        <label>Places disponibles</label>
+        <input type="number" formControlName="placesDisponibles" />
+      </div>
+  
+      <div class="form-group">
+        <label>Nombre de participants</label>
+        <input type="number" formControlName="nbParticipants" />
+      </div>
+  
+      <div class="form-group">
+        <label>Endroit</label>
+        <input type="text" formControlName="endroit" />
+      </div>
+  
+      <div class="form-group">
+        <label>Certifiante</label>
+        <input type="checkbox" formControlName="certifiante" />
+      </div>
+      <div class="form-group">
+        <label>Type</label>
+        <select formControlName="type" class="p-inputtext p-component">
+          <option *ngFor="let type of typeOptions" [value]="type">{{ type }}</option>
+        </select>
+      </div>
+   
+      <div class="button-group">
+        
+        <button pButton type="submit" class="p-button-success" [disabled]="formationForm.invalid">Enregistrer</button>
+      </div>
+  
+    </form>
+  </div>
+  

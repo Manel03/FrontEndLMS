@@ -1,0 +1,171 @@
+<div class="header-title">
+    <h2>Gestion des demandes</h2>
+  </div>
+  
+ <h3>Demandes à valider</h3>
+<p-table [value]="demandesAValider" [paginator]="true" [rows]="5" class="p-datatable-striped">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Utilisateur</th>
+      <th>Formation</th>
+      <th>Date d'inscription</th>
+      <th>État</th>
+      <th>Actions</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-i>
+    <tr>
+      <td>{{ i.userId | user | async }}</td>
+      <td>{{ i.formation.formationNom }}</td>
+      <td>{{ i.dateInscription | date: 'dd/MM/yyyy' }}</td>
+      <td>{{ i.etat }}</td>
+      <td>
+        <div class="action-buttons">
+          
+         
+          <button pButton icon="pi pi-info-circle"  (click)="showDetails(i)" class="p-button-sm"></button>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+
+<h3>Demandes déjà validées *</h3>
+<p-table [value]="demandesValidees" [paginator]="true" [rows]="5" class="p-datatable-striped">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Utilisateur</th>
+      <th>Formation</th>
+      <th>Date d'inscription</th>
+      <th>État</th>
+      <th>Détails</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-i>
+    <tr>
+      <td>{{ i.userId | user | async }}</td>
+      <td>{{ i.formation.formationNom }}</td>
+      <td>{{ i.dateInscription | date: 'dd/MM/yyyy' }}</td>
+      <td>{{ i.etat }}</td>
+      <td>
+        <button pButton icon="pi pi-info-circle" class="p-button-sm"></button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+  
+<p-dialog header="Motif du rejet" [(visible)]="displayMotifDialog" [modal]="true" [closable]="false" [style]="{width: '30vw'}">
+  <div class="p-fluid">
+    <div class="p-field">
+      <label for="motif">Veuillez saisir le motif :</label>
+      <textarea id="motif" rows="5" [(ngModel)]="motif" class="p-inputtext p-component"></textarea>
+    </div>
+  </div>
+  <p-footer>
+    <button pButton label="Annuler" icon="pi pi-times" (click)="displayMotifDialog = false" class="p-button-text"></button>
+    <button pButton label="Confirmer" icon="pi pi-check" (click)="confirmerRejet()" class="p-button-danger"></button>
+  </p-footer>
+</p-dialog>
+
+
+
+
+<!-- New dialog for details -->
+<p-dialog header="Détails de la demande"
+          [(visible)]="displayDetailsDialog"
+          [modal]="true"
+          [style]="{width: '40vw'}">
+
+  <form [formGroup]="demandeForm" *ngIf="selectedInscription" (ngSubmit)="onSubmitDemande()">
+
+    <!-- Utilisateur -->
+    <div class="form-group">
+      <label for="userId">Utilisateur</label>
+      <input id="userId" type="text" class="p-inputtext p-component" formControlName="userId" [value]="selectedInscription.userId | user" readonly />
+    </div>
+
+    <!-- Formation -->
+    <div class="form-group">
+      <label for="formationNom">Formation</label>
+      <input id="formationNom" type="text" class="p-inputtext p-component" formControlName="formationNom" [value]="selectedInscription.formation.formationNom" readonly />
+    </div>
+
+    <!-- Date d'inscription -->
+    <div class="form-group">
+      <label for="dateInscription">Date d'inscription</label>
+      <input id="dateInscription" type="text" class="p-inputtext p-component" formControlName="dateInscription" [value]="(selectedInscription.dateInscription | date: 'dd/MM/yyyy')" readonly />
+    </div>
+
+    <!-- État -->
+    <div class="form-group">
+      <label for="etat">État</label>
+      <input id="etat" type="text" class="p-inputtext p-component" formControlName="etat" [value]="selectedInscription.etat" readonly />
+    </div>
+
+    <!-- Validateur actuel -->
+    <div class="form-group">
+      <label for="validateurId">Validateur actuel</label>
+      <input id="validateurId" type="text" class="p-inputtext p-component" formControlName="validateurId" [value]="selectedInscription.validateurId | user" readonly />
+    </div>
+
+   
+
+    
+  <!-- Choix RH : Approuver ou Rejeter -->
+  <div class="form-group" *ngIf="selectedInscription.etat === 'EN_ATTENTE_RH' ">
+    <label>Décision RH</label><br>
+    <div class="p-field-radiobutton">
+      <p-radioButton name="valideRh" [value]="true" formControlName="isValideRh" inputId="valideRhTrue"></p-radioButton>
+      <label for="valideRhTrue">Approuver</label>
+    </div>
+    <div class="p-field-radiobutton">
+      <p-radioButton name="valideRh" [value]="false" formControlName="isValideRh" inputId="valideRhFalse"></p-radioButton>
+      <label for="valideRhFalse">Rejeter</label>
+    </div>
+  </div>
+
+  <!-- Choix mANAGER : Approuver ou Rejeter -->
+  <div class="form-group" *ngIf="selectedInscription.etat === 'EN_ATTENTE_MANAGER'|| selectedInscription.etat === 'EN_ATTENTE_SUPERIEUR' ">
+    <label>Validé par Manager :</label><br>
+    <div class="p-field-radiobutton">
+      <p-radioButton name="valideManager" [value]="true" formControlName="isValideManager" inputId="valideManagerTrue"></p-radioButton>
+      <label for="valideRhTrue">Approuver</label>
+    </div>
+    <div class="p-field-radiobutton">
+      <p-radioButton name="valideManager" [value]="false" formControlName="isValideManager" inputId="valideManagerFalse"></p-radioButton>
+      <label for="valideRhFalse">Rejeter</label>
+    </div>
+  </div>
+
+  <!-- Motif de rejet si RH a rejeté -->
+  <div class="form-group" *ngIf="demandeForm.get('isValideRh')?.value === false || demandeForm.get('isValideManager')?.value === false ">
+    <label for="motif">Motif de rejet</label>
+    <textarea id="motif" class="p-inputtext p-component" rows="3" formControlName="motif" placeholder="Indiquez le motif de rejet..."></textarea>
+  </div>
+
+  <!-- Validations -->
+    <div class="form-group" *ngIf="demandeForm.get('isValideRh')?.value === true || demandeForm.get('isValideManager')?.value === true ">
+     
+      <div class="p-field-radiobutton">
+        <p-radioButton name="valideRh" [value]="true" formControlName="isValidAvecCertif" inputId="validAvecCertifTrue"></p-radioButton>
+        <label for="validAvecCertifTrue">Validé avec votcher </label>
+      </div>
+      <div class="p-field-radiobutton">
+        <p-radioButton name="valideRh" [value]="false" formControlName="isValidAvecCertif" inputId="validAvecCertifFalse"></p-radioButton>
+        <label for="validAvecCertifFalse">Validé sans votcher </label>
+      </div>
+    
+    </div>
+
+    
+    <p-footer>
+      <button pButton label="Enregistrer" icon="pi pi-times" type="submit"
+            class="p-button-text"
+            aria-label="Fermer la fenêtre des détails">
+      </button>
+    </p-footer>
+
+  </form>
+</p-dialog>

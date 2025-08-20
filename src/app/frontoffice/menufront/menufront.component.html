@@ -1,0 +1,81 @@
+<nav class="navbar">
+    <div class="logo">
+      <img src="./assets/images/logos/actialogo.png" alt="Actia Logo" />
+    </div>
+  
+    <ul class="nav-menu">
+       
+      <li><a routerLink="/front-office/homelms">ACCUEIL</a></li>
+      <li><a routerLink="/front-office/actualite">ACTUALITE</a></li>
+      <li><a routerLink="/front-office/formations" (click)="closeAll()">FORMATIONS</a></li>
+    <li><a routerLink="/front-office/demande" (click)="closeAll()">DEMANDE</a></li>
+    <li><a routerLink="/front-office/formationshistorique" (click)="closeAll()">HISTORIQUE</a></li>
+    <li><a routerLink="/front-office/progression" (click)="closeAll()">PROGRESSION</a></li>
+
+    </ul>
+  
+    <span class="flex-1-auto"></span>
+    <p style="
+      margin-right: 16px;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 500;
+      font-size: 16px;
+      color: #ffffff;
+    ">
+      {{user?.firstName}} {{user?.lastName}}
+    </p>
+  
+    <!-- Search and Profile Icons on the right side -->
+    <div class="icons-right">
+     
+
+       
+
+ 
+<button mat-icon-button [matMenuTriggerFor]="notifMenu" aria-label="Notifications" class="notification-icon">
+  <mat-icon>notifications</mat-icon>
+  <span class="notif-badge" *ngIf="notifications.length > 0">{{ notifications.length }}</span>
+</button>
+
+
+<mat-menu #notifMenu="matMenu" class="topbar-dd cardWithShadow">
+  <ng-container *ngIf="notifications.length > 0; else noNotif">
+    <ng-container *ngFor="let notif of notifications">
+      <button mat-menu-item (click)="markAsRead(notif.id)">
+       <mat-icon color="primary" style="margin-right: 8px;">notifications</mat-icon>
+
+        <div style="margin-left: 10px;">
+          <div>{{ notif.message }}</div>
+          <small>{{ notif.dateNotification | date:'short' }}</small>
+        </div>
+      </button>
+    </ng-container>
+  </ng-container>
+  <ng-template #noNotif>
+    <button mat-menu-item disabled>
+      <mat-icon>check_circle</mat-icon> Aucune notification
+    </button>
+  </ng-template>
+</mat-menu>
+
+  
+      <button mat-icon-button [matMenuTriggerFor]="profilemenu" aria-label="Profile" class="profile-icon">
+        <mat-icon class="d-flex align-items-center">person</mat-icon> <!-- Person icon -->
+      </button>
+    </div>
+  
+    <mat-menu #profilemenu="matMenu" class="topbar-dd cardWithShadow">
+      <button mat-menu-item>
+        <mat-icon class="d-flex align-items-center">person</mat-icon> My Profile
+      </button>
+      <button mat-menu-item>
+        <mat-icon class="d-flex align-items-center">person</mat-icon> My Dashboard
+      </button>
+      <div class="p-x-12 m-t-12">
+        <button (click)="logout()" mat-stroked-button color="primary" class="w-100">
+          Logout
+        </button>
+      </div>
+    </mat-menu>
+  </nav>
+  

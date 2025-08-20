@@ -1,0 +1,26 @@
+<p-dialog [(visible)]="display" [modal]="true" [header]="'Détails de la formation'" [style]="{width: '500px'}">
+    <div *ngIf="formation" class="dialog-content">
+      <div class="image-container">
+      <img [src]="'http://localhost:8085/api/micro-formation/get-file/' + formation.image.replace('/downloadFile/','')" alt="Image de la formation" class="formation-image" />
+    </div>
+  
+      <p><strong>📘 Nom :</strong> {{ formation.formationNom }}</p>
+      <p><strong>📝 Description :</strong> {{ formation.description }}</p>
+      <p><strong>📅 Date de début :</strong> {{ formation.dateDebut | date:'longDate' }}</p>
+      <p><strong>📅 Date de fin :</strong> {{ formation.dateFin | date:'longDate' }}</p>
+    </div>
+  
+    <p-footer>
+        <p-footer>
+            <button 
+              pButton 
+              type="button" 
+              label="Fermer" 
+              class="btn-green" 
+              (click)="closeModal()">
+            </button>
+          </p-footer>
+          
+    </p-footer>
+  </p-dialog>
+  

@@ -1,0 +1,113 @@
+<mat-toolbar class="topbar">
+  <!-- Mobile Menu -->
+  <button mat-icon-button (click)="toggleMobileNav.emit()" *ngIf="!showToggle">
+    <i-tabler name="menu-2" class="icon-20 d-flex"></i-tabler>
+  </button>
+  <!-- --------------------------------------------------------------- -->
+
+  <!-- --------------------------------------------------------------- -->
+  <!-- Notification Dropdown -->
+  <!-- --------------------------------------------------------------- -->
+
+  <!-- <button mat-icon-button aria-label="Notifications">
+    <i-tabler
+      class="d-flex"
+      name="bell"
+      matBadge="1"
+      matBadgeColor="primary"
+    ></i-tabler>
+  </button> -->
+  <!-- Cloche de notification -->
+
+  <!-- Cloche de notification (toujours visible) -->
+<button mat-icon-button aria-label="Notifications"
+        [matMenuTriggerFor]="notificationMenu">
+  <i-tabler
+    class="d-flex"
+    name="bell"
+    [matBadge]="allNotifications.length"
+    matBadgeColor="warn"
+    matBadgeHidden="allNotifications.length === 0"
+    matBadgeOverlap="false">
+  </i-tabler>
+</button>
+
+<!-- Menu déroulant des notifications -->
+<mat-menu #notificationMenu="matMenu" class="topbar-dd cardWithShadow">
+  <ng-container *ngIf="allNotifications.length > 0; else noNotif">
+    <button mat-menu-item *ngFor="let notif of allNotifications">
+      <mat-icon class="d-flex align-items-center">
+        <i-tabler name="alert-circle" class="icon-18 d-flex"></i-tabler>
+      </mat-icon>
+      {{ notif.message }}
+    </button>
+  </ng-container>
+
+  <!-- Message "Aucune notification" -->
+  <ng-template #noNotif>
+    <button mat-menu-item disabled>
+      Aucune notification
+    </button>
+  </ng-template>
+</mat-menu>
+
+
+  <span class="flex-1-auto"></span>
+  <p style="
+    margin-right: 16px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: #333;
+  ">
+     {{user?.firstName}} {{user?.lastName}}
+  </p>
+
+
+
+  <!-- --------------------------------------------------------------- -->
+  <!-- profile Dropdown -->
+  <!-- --------------------------------------------------------------- -->
+
+  <button
+    mat-icon-button
+    [matMenuTriggerFor]="profilemenu"
+    aria-label="Notifications"
+  >
+    <img
+      src="/assets/images/profile/user-1.jpg"
+      class="rounded-circle object-cover"
+      width="35"
+    />
+  </button>
+  <mat-menu #profilemenu="matMenu" class="topbar-dd cardWithShadow">
+    <button mat-menu-item>
+      <mat-icon class="d-flex align-items-center"
+        ><i-tabler name="user" class="icon-18 d-flex"></i-tabler></mat-icon
+      >My Profile
+    </button>
+    <button mat-menu-item>
+      <mat-icon class="d-flex align-items-center"
+        ><i-tabler name="mail" class="icon-18 d-flex"></i-tabler></mat-icon
+      >My Account
+    </button>
+    <button mat-menu-item>
+      <mat-icon class="d-flex align-items-center"
+        ><i-tabler
+          name="list-check"
+          class="icon-18 d-flex"
+        ></i-tabler></mat-icon
+      >My Task
+    </button>
+
+    <div class="p-x-12 m-t-12">
+      <a
+        (click)="logout()"
+        mat-stroked-button
+        color="primary"
+        class="w-100"
+        >Logout</a
+      >
+    </div>
+  </mat-menu>
+</mat-toolbar>

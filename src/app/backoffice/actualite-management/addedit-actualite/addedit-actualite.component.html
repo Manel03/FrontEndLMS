@@ -1,0 +1,57 @@
+
+
+<!-- ✅ La modale elle-même -->
+
+  <div class="modal-content">
+    <form [formGroup]="actualiteForm" (ngSubmit)="saveActualite()">
+      <!-- Nom de la formation -->
+      <div class="form-group">
+        <label for="formationNom">Nom de la formation</label>
+        <input type="text" id="formationNom" formControlName="formationNom" class="p-inputtext p-component" placeholder="Nom de la formation" />
+        <small *ngIf="actualiteForm.get('formationNom')?.invalid && actualiteForm.get('formationNom')?.touched" class="p-error">
+          Le nom de la formation est requis.
+        </small>
+      </div>
+
+      <!-- Image -->
+      <div class="form-group">
+        <label for="image">Image</label>
+        <input type="file" (change)="uploadFile($event)" id="image" class="file-input" />
+        <small *ngIf="actualiteForm.get('image')?.invalid && actualiteForm.get('image')?.touched" class="p-error">
+          L'image est requise.
+        </small>
+      </div>
+
+      <!-- Description -->
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" formControlName="description" rows="4" class="p-inputtext p-component" placeholder="Description de la formation"></textarea>
+        <small *ngIf="actualiteForm.get('description')?.invalid && actualiteForm.get('description')?.touched" class="p-error">
+          La description est requise.
+        </small>
+      </div>
+
+      <!-- Date de début -->
+      <div class="form-group">
+        <label for="dateDebut">Date début</label>
+        <input type="date" id="dateDebut" formControlName="dateDebut" class="p-inputtext p-component" />
+      </div>
+
+      <!-- Date de fin -->
+      <div class="form-group">
+        <label for="dateFin">Date fin</label>
+        <input type="date" id="dateFin" formControlName="dateFin" class="p-inputtext p-component" />
+      </div>
+      <small *ngIf="actualiteForm.errors?.['dateInvalide'] && actualiteForm.get('dateFin')?.touched" class="p-error">
+        La date de fin doit être postérieure à la date de début.
+      </small>
+      
+      
+      <!-- Boutons -->
+      <div class="button-group">
+        <button pButton type="submit" label="Enregistrer" icon="pi pi-save" class="p-button-success"
+          [disabled]="actualiteForm.invalid"></button>
+        
+      </div>
+    </form>
+  </div>

@@ -1,0 +1,20 @@
+.image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+//   .formation-image {
+//     width: 310px;
+//     height: 290px;
+//     object-fit: cover;
+//     border-radius: 6px;
+//   }
+
+  .formation-image {
+    width: 310px;
+    height: 290px;
+    object-fit: contain; // ✅ change ici
+    border-radius: 6px;
+  }
+  

@@ -1,0 +1,134 @@
+<app-menufront></app-menufront>
+<div class="banner-wrapper">
+  <div class="banner-image">
+    <img src="assets/images/backgrounds/image.jpg" alt="Banner">
+    <div class="banner-text">
+      <h1 class="title-small">NEWSROOM</h1>
+      <br>
+      <h2 class="title-big">Actualités</h2>
+    </div>
+  </div>
+</div>
+
+<div class="formation-section">
+  <h2 class="formation-title">ACTUALITÉS DES FORMATIONS</h2>
+  <p class="formation-subtitle">Restez informé(e) des dernières formations ajoutées, conçues pour répondre aux besoins actuels du marché et enrichir vos compétences.</p>
+</div>
+
+  
+
+<br>
+<div class="search-container">
+  <div class="search-item">
+    <label class="search-label"><i class="fa fa-search"></i>Nom de formation</label>
+    
+    <input 
+      type="text" 
+      [(ngModel)]="searchTermNom" 
+      placeholder="Rechercher par nom de formation" 
+      (input)="filterFormations()">
+  </div>
+
+  <div class="search-item">
+    <label class="search-label"><i class="fa fa-calendar"></i>Date de début</label>
+ 
+    <input 
+      type="date" 
+      [(ngModel)]="searchTermDateDebut" 
+      (input)="filterFormations()">
+  </div>
+
+  <div class="search-item">
+    <label class="search-label">  <i class="fa fa-calendar-check"></i>Date de fin</label>
+   
+    <input 
+      type="date" 
+      [(ngModel)]="searchTermDateFin" 
+      (input)="filterFormations()">
+  </div>
+</div>
+<br>
+<div class="carousel-container">
+  <button class="nav-button left" (click)="prevFormation()">
+    ‹
+  </button>
+
+  <div class="formation-card-carousel">
+  <!-- Carte gauche -->
+  <div class="formation-card left-card" *ngIf="previousFormation">
+    <img [src]="'http://localhost:8085/api/micro-formation/get-file/' + previousFormation.image.replace('/downloadFile/','')" 
+         alt="Image formation" class="formation-image" />
+    <div class="card-content">
+      <h2>{{ previousFormation.formationNom }}</h2>
+      <p class="description">{{ previousFormation.description }}</p>
+      <p class="dates">📅 Du {{ previousFormation.dateDebut | date: 'shortDate' }}</p>
+      <div class="button-wrapper">
+        <button pButton type="button" icon="pi pi-info-circle" label="Détails"
+                class="custom-button"
+                (click)="showFormationDetails(previousFormation, formationDetailsModal)">
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Carte centrale -->
+  <div class="formation-card center-card" *ngIf="currentFormation">
+    <img [src]="'http://localhost:8085/api/micro-formation/get-file/' + currentFormation.image.replace('/downloadFile/','')" 
+         alt="Image formation" class="formation-image" />
+    <div class="card-content">
+      <h2>{{ currentFormation.formationNom }}</h2>
+      <p class="description">{{ currentFormation.description }}</p>
+      <p class="dates">📅 Du {{ currentFormation.dateDebut | date: 'shortDate' }}</p>
+      <div class="button-wrapper">
+        <button pButton type="button" icon="pi pi-info-circle" label="Détails"
+                class="custom-button"
+                (click)="showFormationDetails(currentFormation, formationDetailsModal)">
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Carte droite -->
+  <div class="formation-card right-card" *ngIf="nextFormation">
+    <img [src]="'http://localhost:8085/api/micro-formation/get-file/' + nextFormation.image.replace('/downloadFile/','')" 
+         alt="Image formation" class="formation-image" />
+    <div class="card-content">
+      <h2>{{ nextFormation.formationNom }}</h2>
+      <p class="description">{{ nextFormation.description }}</p>
+      <p class="dates">📅 Du {{ nextFormation.dateDebut | date: 'shortDate' }}</p>
+      <div class="button-wrapper">
+        <button pButton type="button" icon="pi pi-info-circle" label="Détails"
+                class="custom-button"
+                (click)="showFormationDetails(nextFormation, formationDetailsModal)">
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+  <button class="nav-button right" (click)="goToNextFormation()">
+    ›
+  </button>
+</div>
+
+
+<!-- <div class="pagination">
+  <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">
+    Précédent
+  </button>
+
+  <span>Page {{ currentPage }} / {{ totalPages }}</span>
+
+  <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages">
+    Suivant
+  </button>
+</div> -->
+<br>
+
+
+      <app-showactualitedetailoffice #formationDetailsModal></app-showactualitedetailoffice>
+      <br>
+      <br>
+<app-footer></app-footer>

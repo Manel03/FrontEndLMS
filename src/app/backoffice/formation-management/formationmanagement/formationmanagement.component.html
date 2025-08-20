@@ -1,0 +1,75 @@
+<div class="header-title">
+    <h2>Gestion des formations</h2>
+  </div>
+  
+<fieldset class="search-filters">
+    <legend>Recherche</legend>
+    <div class="search-fields">
+      <div class="first-row">
+        <div class="input-group-horizontal">
+          <label for="nom">Nom formation</label>
+          <input id="nom" type="text" pInputText [(ngModel)]="searchNom" placeholder="Nom formation" />
+        </div>
+        <div class="input-group-horizontal">
+          <label for="dateDebut">Date début</label>
+          <input id="dateDebut" type="date" pInputText [(ngModel)]="searchDateDebut" />
+        </div>
+        <div class="input-group-horizontal">
+          <label for="dateFin">Date fin</label>
+          <input id="dateFin" type="date" pInputText [(ngModel)]="searchDateFin" />
+        </div>
+      </div>
+      <div class="second-row">
+        <div class="buttons">
+          <button pButton label="Rechercher" icon="pi pi-search" (click)="filterFormations()" class="p-button-sm"></button>
+          <button pButton label="Réinitialiser" icon="pi pi-refresh" (click)="resetFilters()" class="p-button-secondary p-button-sm"></button>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+  
+  <p-table
+    [value]="filteredFormations"
+    [paginator]="true"
+    [rows]="5"
+    [responsiveLayout]="'scroll'"
+    [style]="{ 'background-color': '#fff', 'border-radius': '12px' }"
+    class="p-datatable-striped"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Image</th>
+        <th>Nom Formation</th>
+        <th>Date Début</th>
+        <th>Date Fin</th>
+        <th>
+          <button pButton type="button" icon="pi pi-plus" label="Actions" (click)="addFormation()" class="add-user-button"></button>
+          <!-- <button pButton type="button" icon="pi pi-plus" label="Actions" (click)="openAddModal()" class="add-user-button"></button> -->
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-f>
+      <tr>
+        <td>
+          <img [src]="getImageUrl(f.image)" alt="Image formation" class="formation-image" />
+        </td>
+        <td>{{ f.formationNom }}</td>
+        <td>{{ f.dateDebut | date: 'dd/MM/yyyy' }}</td>
+        <td>{{ f.dateFin | date: 'dd/MM/yyyy' }}</td>
+        <td class="action-buttons">
+          <div style="display: flex; gap: 4px;">
+            <button pButton icon="pi pi-pencil" (click)="editFormation(f)"></button>
+
+            <button pButton icon="pi pi-info-circle" (click)="showFormationDetails(f)"></button>
+
+            <button pButton icon="pi pi-trash" (click)="deleteFormation(f)"></button>
+            
+            <!-- <button pButton icon="pi pi-pencil" (click)="openEditModal(f)"></button>
+            <button pButton icon="pi pi-info-circle" (click)="showFormationDetails(f, showformationdetail)"></button>
+            <button pButton icon="pi pi-trash" (click)="deleteFormation(f)"></button> -->
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  

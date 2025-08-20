@@ -1,0 +1,86 @@
+<app-menufront></app-menufront>
+
+<div class="banner-wrapper">
+  <div class="banner-image">
+    <img src="assets/images/backgrounds/histowal.JPG" alt="Banner">
+    <div class="banner-text">
+      <h1 class="title-small">VOTRE PARCOURS</h1>
+      <br>
+      <h2 class="title-big">Historique</h2>
+    </div>
+  </div>
+</div>
+
+<div class="formation-section">
+  <h2 class="formation-title">VOS FORMATIONS ACQUISES</h2>
+  <p class="formation-subtitle">
+    Retrouvez ici l’ensemble des formations que vous avez suivies, ainsi que les compétences que vous avez développées au fil de votre parcours.
+  </p>
+</div>
+
+<br>
+
+<div class="container mt-4">
+  <h2 class="section-header">Formations terminées</h2>
+
+  <div *ngIf="formationsTerminees.length === 0" class="text-muted">
+    <p>Aucune formation terminée pour le moment.</p>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let formation of formationsTerminees">
+      <div class="formation-card text-center p-3">
+        <img *ngIf="formation.image"
+             [src]="'http://localhost:8085/api/micro-formation/get-file/' + formation.image.replace('/downloadFile/','')"
+             alt="Image de la formation"
+             class="formation-image mb-3" />
+
+        <h5 class="formation-title">{{ formation.formationNom }}</h5>
+        <p class="formation-dates text-muted">
+          Du {{ formation.dateDebut | date:'dd/MM/yyyy' }} au {{ formation.dateFin | date:'dd/MM/yyyy' }}
+        </p>
+
+       <!-- Feedback -->
+<!-- Feedback -->
+<!-- Feedback -->
+<div *ngIf="!feedbackEnvoye[formation.id]" class="mt-3 feedback-section p-3">
+  <h6 class="feedback-title">Donnez votre avis :</h6>
+
+  <!-- Étoiles -->
+  <div class="stars mb-3">
+    <span *ngFor="let star of [1, 2, 3, 4, 5]"
+          (click)="feedbacks[formation.id].etoiles = star"
+          (mouseenter)="feedbacks[formation.id].hover = star"
+          (mouseleave)="feedbacks[formation.id].hover = 0"
+          class="star"
+          [class.filled]="star <= (feedbacks[formation.id].hover || feedbacks[formation.id].etoiles)">
+      ★
+    </span>
+  </div>
+
+  <!-- Commentaire -->
+  <textarea [(ngModel)]="feedbacks[formation.id].commentaire"
+            class="form-control feedback-textarea"
+            rows="3"
+            placeholder="Exprimez votre ressenti sur la formation..."></textarea>
+
+  <!-- Bouton -->
+  <button class="btn feedback-btn"
+          (click)="envoyerFeedback(formation.id, feedbacks[formation.id])"
+          [disabled]="feedbacks[formation.id].etoiles === 0 || !feedbacks[formation.id].commentaire">
+    Envoyer le feedback
+  </button>
+</div>
+
+
+
+        <div *ngIf="feedbackEnvoye[formation.id]" class="text-success mt-3">
+          ✅ Merci pour votre feedback !
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br>
+<app-footer></app-footer>

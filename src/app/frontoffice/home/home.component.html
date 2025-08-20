@@ -1,0 +1,55 @@
+<div class="home-container">
+    <!-- Navigation Bar -->
+    <app-navbar></app-navbar>
+    
+    <!-- Hero Section -->
+    <div class="hero">
+      <div class="hero-text">
+       
+        
+        <button (click)="scrollToAboutSection()">Get Started</button>
+  
+      </div>
+    </div>
+  
+    <!-- About Section -->
+    <div id="about-section" class="about-section">
+      <section class="growth-section">
+        <h2 class="title">LET'S GROW TOGETHER</h2>
+        <div class="cards-container">
+          <div class="card">
+            <h3>CARRIÈRE</h3>
+            <div class="underline"></div>
+            <p>Contrôlez votre cycle de performance et demandez un feedback.</p>
+          </div>
+          <div class="card">
+            <h3>APPRENTISSAGE</h3>
+            <div class="underline"></div>
+            <p>Développez votre carrière tout en profitant de l'expérience d'apprentissage.</p>
+          </div>
+          <div class="card">
+            <h3>PERFORMANCE</h3>
+            <div class="underline"></div>
+            <p>Suivez votre performance et améliorez votre carrière.</p>
+          </div>
+        </div>
+      </section>
+      
+    </div>
+  
+    <app-footer></app-footer>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const button = document.getElementById('get-started-button');
+      const targetSection = document.getElementById('about-section');
+  
+      if (button && targetSection) {
+        button.addEventListener('click', function() {
+          targetSection.scrollIntoView({ behavior: 'smooth' });
+        });
+      }
+    });
+  </script>
+  
+  

@@ -1,0 +1,61 @@
+/* Dialog container */
+.mat-dialog-container {
+    background-color: #1a1a1a; /* Black background */
+    color: #ffffff; /* White text */
+    border-radius: 8px;
+    padding: 0;
+    overflow: hidden;
+  }
+  
+  /* Title */
+  h2[mat-dialog-title] {
+    background-color: #2e7d32; /* Green background */
+    color: #ffffff; /* White text */
+    margin: 0;
+    padding: 10px 20px;
+    font-size: 20px;
+    font-weight: 500;
+  }
+  
+  /* Content */
+  mat-dialog-content {
+    padding: 24px;
+    color: #ffffff; /* White text */
+    background-color: #fdfdfd; /* Black background */
+  }
+  
+  /* Paragraph inside content */
+  mat-dialog-content p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  
+  /* Actions */
+  mat-dialog-actions {
+    padding: 8px 24px;
+    background-color: #ffffff; /* Black background */
+  }
+  
+  /* Button */
+  button[mat-button] {
+    background-color: #4caf50; /* Green button */
+    color: #ffffff; /* White text */
+    border-radius: 4px;
+    padding: 8px 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  button[mat-button]:hover {
+    background-color: #66bb6a; /* Lighter green on hover */
+  }
+  
+  /* Focus and active states */
+  button[mat-button]:focus {
+    outline: 2px solid #ffffff; /* White outline for accessibility */
+    outline-offset: 2px;
+  }
+  
+  button[mat-button]:active {
+    background-color: #388e3c; /* Darker green when clicked */
+  }

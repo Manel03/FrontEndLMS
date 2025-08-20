@@ -1,0 +1,149 @@
+<div class="add-edit-user-container">
+  <h2>{{ isEditMode ? 'Modifier l\'utilisateur' : 'Ajouter un utilisateur' }}</h2>
+
+  <form [formGroup]="userForm">
+    <!-- Username -->
+    <div class="form-group">
+      <label for="username">Nom d'utilisateur</label>
+      <input type="text" id="username" formControlName="username" class="p-inputtext p-component" />
+      <small *ngIf="userForm.get('username')?.invalid && (userForm.get('username')?.dirty || userForm.get('username')?.touched)" class="p-error">
+        Le nom d'utilisateur est requis.
+      </small>
+    </div>
+
+    <!-- Email -->
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" formControlName="email" class="p-inputtext p-component" />
+      <small *ngIf="userForm.get('email')?.errors?.['required'] && (userForm.get('email')?.dirty || userForm.get('email')?.touched)" class="p-error">
+        L'email est requis.
+      </small>
+      <small *ngIf="userForm.get('email')?.errors?.['email'] && (userForm.get('email')?.dirty || userForm.get('email')?.touched)" class="p-error">
+        Veuillez entrer un email valide.
+      </small>
+    </div>
+
+    <!-- Prénom -->
+    <div class="form-group">
+      <label for="firstName">Prénom</label>
+      <input type="text" id="firstName" formControlName="firstName" class="p-inputtext p-component" />
+      <small *ngIf="userForm.get('firstName')?.invalid && (userForm.get('firstName')?.dirty || userForm.get('firstName')?.touched)" class="p-error">
+        Le prénom est requis.
+      </small>
+    </div>
+
+    <!-- Nom -->
+    <div class="form-group">
+      <label for="lastName">Nom</label>
+      <input type="text" id="lastName" formControlName="lastName" class="p-inputtext p-component" />
+      <small *ngIf="userForm.get('lastName')?.invalid && (userForm.get('lastName')?.dirty || userForm.get('lastName')?.touched)" class="p-error">
+        Le nom est requis.
+      </small>
+    </div>
+
+    <!-- Compte activé -->
+    <div class="form-group">
+      <label for="enabled">Compte activé</label>
+      <p-checkbox formControlName="enabled" [binary]="true"></p-checkbox>
+    </div>
+
+    <!-- Détails Section -->
+    <div formGroupName="details">
+      <div class="form-group">
+        <label for="departement">Département</label>
+        <input type="text" id="departement" formControlName="departement" class="p-inputtext p-component" />
+        <small *ngIf="userForm.get('details.departement')?.invalid && (userForm.get('details.departement')?.dirty || userForm.get('details.departement')?.touched)" class="p-error">
+          Le département est requis.
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label for="telephone">Téléphone</label>
+        <input
+        type="text"
+        id="telephone"
+        formControlName="telephone"
+        class="p-inputtext p-component"
+        pattern="\d{8}"
+        required
+      />
+        <small *ngIf="userForm.get('details.telephone')?.invalid && (userForm.get('details.telephone')?.dirty || userForm.get('details.telephone')?.touched)" class="p-error">
+          
+        </small>
+      </div>
+      <!-- Rôle -->
+      <div class="form-group">
+        <label for="role">Rôle</label>
+        <p-dropdown
+          id="role"
+          formControlName="roles"
+          [options]="roles"
+          placeholder="Sélectionner un rôle"
+          optionLabel="label"
+          [ngStyle]="{ 'width': '100%' }">
+        </p-dropdown>
+        <small *ngIf="userForm.get('role')?.invalid && (userForm.get('role')?.dirty || userForm.get('role')?.touched)" class="p-error">
+          Le rôle est requis.
+        </small>
+      </div>
+
+
+      
+
+      <div class="form-group">
+        <label for="poste">Poste</label>
+        <input type="text" id="poste" formControlName="poste" class="p-inputtext p-component" />
+        <small *ngIf="userForm.get('details.poste')?.invalid && (userForm.get('details.poste')?.dirty || userForm.get('details.poste')?.touched)" class="p-error">
+          Le poste est requis.
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label for="manager">Manager</label>
+        <div class="col-12">
+          <p-dropdown 
+            [options]="users"
+            optionLabel="manager"
+            formControlName="manager"
+            placeholder="Select a User"
+            [filter]="true"
+            [filterBy]="'firstName,lastName'"
+            [showClear]="true"
+            [ngStyle]="{ 'width': '100%' }"
+          >
+          
+          <!-- Template pour chaque item de la liste -->
+          <ng-template let-user pTemplate="item">
+            {{ user.firstName }} {{ user.lastName }}
+          </ng-template>
+
+          <!-- Template pour l'élément sélectionné -->
+          <ng-template let-user pTemplate="selectedItem">
+            {{ user?.firstName }} {{ user?.lastName }}
+          </ng-template>
+        </p-dropdown>
+        </div>
+        
+
+        
+      </div>
+      <div class="form-group">
+        <label for="profilePicture">Photo de profil</label>
+        <p-fileUpload
+          name="file"
+          url="http://localhost:8080/api/v1/users/upload-profile/{{ userForm.get('id')?.value }}"
+          accept="image/*"
+          mode="basic"
+          chooseLabel="Choisir une image"
+          (onSelect)="onSelect($event)">
+        </p-fileUpload>
+      </div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="button-group">
+      <button pButton type="submit" label="Enregistrer" icon="pi pi-save" class="p-button-success" (click)="saveUser()" [disabled]="userForm.invalid"></button>
+      <button pButton type="button" label="Annuler" icon="pi pi-times" class="p-button-secondary" (click)="navigateBack()"></button>
+    </div>
+  </form>
+</div>

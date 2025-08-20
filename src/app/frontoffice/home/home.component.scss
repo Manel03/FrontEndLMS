@@ -1,0 +1,140 @@
+.home-container {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+  
+    .hero {
+      background-image: url('/assets/images/logos/4succes.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+      height: 90vh; /* Full viewport height */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  
+      .hero-text {
+        text-align: center;
+        color: #fff;
+  
+        h1 {
+          font-size: 48px;
+          margin-bottom: 20px;
+        }
+  
+        p {
+          font-size: 20px;
+          margin-bottom: 30px;
+        }
+  
+        button {
+          background-color: #44A01B;
+          color: #fff;
+          padding: 15px 30px; /* Increase padding for a larger button */
+          font-size: 22px; /* Increase font size for better readability */
+          border: none;
+          border-radius: 8px; /* Slightly increase border-radius for a more rounded look */
+          cursor: pointer;
+          transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for hover effect */
+  
+          &:hover {
+            background-color: #333;
+            color: #fff;
+          }
+        }
+      }
+    }
+  
+    .about-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0px;
+  
+      .about-image {
+        flex: 1;
+        img {
+          width: 80%; /* Reduce size */
+          max-width: 400px; /* Set a max-width */
+          border-radius: 10px;
+          transition: transform 0.3s ease-in-out; /* Smooth transition for scaling */
+  
+          &:hover {
+            transform: scale(1.1); /* Scale up on hover */
+          }
+        }
+      }
+  
+      .about-text {
+        flex: 1;
+        padding-left: 50px;
+  
+        h2 {
+          font-size: 32px;
+          margin-bottom: 20px;
+        }
+  
+        p {
+          font-size: 18px;
+          line-height: 1.6;
+        }
+      }
+    }
+
+    .growth-section {
+      position: relative;
+      background: url('/assets/images/logos/cap1.JPG') center/cover no-repeat;
+      background-size: cover; /* Assure que l'image couvre toute la section */
+      background-position: center;
+      width: 100vw; /* Prend toute la largeur de l'écran */
+      min-height: 100vh; /* Ajuste la hauteur pour qu'elle prenne tout l'écran */
+      color: white;
+      text-align: center;
+      padding: 80px 20px;
+    
+    
+      .title {
+        font-size: 38px;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 50px;
+      }
+    
+      .cards-container {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        flex-wrap: wrap;
+    
+        .card {
+          background: rgba(0, 0, 0, 0.7);
+          padding: 30px;
+          width: 320px;
+          min-height: 400px;
+          text-align: left;
+          position: relative;
+          border-radius: 8px;
+    
+          h3 {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 10px;
+          }
+    
+          .underline {
+            width: 40px;
+            height: 3px;
+            background: #b4dd59;
+            margin-bottom: 15px;
+          }
+    
+          p {
+            font-size: 16px;
+            line-height: 1.5;
+          }
+        }
+      }
+    }
+    
+  }
+  

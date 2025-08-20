@@ -1,0 +1,270 @@
+::ng-deep .p-datatable-striped .p-datatable-tbody > tr {
+  border-bottom: none !important;
+}
+
+::ng-deep .p-datatable-striped .p-datatable-tbody > tr td {
+  border-bottom: none !important;
+}
+:host ::ng-deep .p-datatable {
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #000000; // ajout du cadrage noir
+
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); // ajout pour un effet doux
+
+  .p-datatable-thead > tr > th {
+    background-color: #000000;
+    color: #ffffff;
+    font-weight: bold;
+    text-align: center;
+    padding: 12px; // ajouter un padding régulier
+  }
+
+  .p-datatable-tbody > tr > td {
+    text-align: center;
+    vertical-align: middle;
+    padding: 12px;
+    border-bottom: 1px solid #ddd; // pour bien délimiter les lignes
+  }
+
+  .p-datatable-tbody > tr:hover {
+    background-color: #e6e6e6; // effet hover doux
+  }
+}
+
+
+  .search-filters {
+    border: 2px solid #000000;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    background: #f8f9fa;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  
+    legend {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #333;
+      padding: 0 10px;
+    }
+  
+    .search-fields {
+      .first-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 0;
+
+  .input-group-horizontal {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    label {
+      font-weight: 500;
+      white-space: nowrap;
+      font-size: 14px;
+    }
+
+    input,
+    ::ng-deep .p-inputtext,
+    ::ng-deep .p-calendar {
+      padding: 5px 8px;
+      height: 32px;
+      font-size: 14px;
+      border-radius: 8px; // ⬅️ coins arrondis ici
+      border: 1px solid #ccc;
+    }
+  }
+
+  button {
+    height: 36px;
+    padding: 5px 12px;
+    font-size: 14px;
+    border-radius: 8px; // ⬅️ coins arrondis pour les boutons aussi
+  }
+}
+
+.first-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 0;
+
+  .input-group-horizontal {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    label {
+      font-weight: 500;
+      white-space: nowrap;
+      font-size: 14px;
+    }
+
+    input,
+    ::ng-deep .p-inputtext,
+    ::ng-deep .p-calendar {
+      padding: 5px 8px;
+      height: 32px;
+      font-size: 14px;
+      border-radius: 8px; // ⬅️ coins arrondis ici
+      border: 1px solid #ccc;
+    }
+  }
+
+  button {
+    height: 36px;
+    padding: 5px 12px;
+    font-size: 14px;
+    border-radius: 8px; // ⬅️ coins arrondis pour les boutons aussi
+  }
+}
+
+.first-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 0;
+
+  .input-group-horizontal {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    label {
+      font-weight: 500;
+      white-space: nowrap;
+      font-size: 14px;
+    }
+
+    input,
+    ::ng-deep .p-inputtext,
+    ::ng-deep .p-calendar {
+      padding: 5px 60px;
+      height: 32px;
+      font-size: 14px;
+      border-radius: 8px; // ⬅️ coins arrondis ici
+      border: 1px solid #ccc;
+    }
+  }
+
+  button {
+    height: 36px;
+    padding: 5px 12px;
+    font-size: 14px;
+    border-radius: 8px; // ⬅️ coins arrondis pour les boutons aussi
+  }
+}
+
+      
+      .second-row {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        
+        p-dropdown {
+          width: 300px;
+          min-width: 7px;
+          padding: 4px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+        }
+  
+        .buttons {
+          display: flex;
+          gap: 10px;
+          justify-content: flex-start;
+  
+          button {
+            background: #1a1616;
+            color: white;
+            border: none;
+            padding: 8px 40px;
+            border-radius: 5px;
+            transition: 0.3s;
+  
+            &:hover {
+              background: #007b3e;
+            }
+          }
+        }
+      }
+    }
+  }
+  ::ng-deep .p-button {
+    background-color: #000 !important;
+    border: none !important;
+    color: #fff !important;
+  }
+  
+  ::ng-deep .p-button:hover {
+    background-color: #007b3e !important;
+    color: #fff !important;
+  }
+  ::ng-deep .p-datatable-wrapper {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+.add-user-button {
+  background: #000000;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  transition: 0.3s;
+  margin-left: 10px;  // Add space between the button and the right border of the column
+
+  &:hover {
+    background: #007b3e;
+  }
+}
+.formation-image {
+  width: 60px;    // ou une taille plus petite selon ton besoin
+  height: 60px;
+
+  object-fit: contain;
+  border-radius: 6px; // optionnel, pour arrondir légèrement les coins
+}
+
+::ng-deep .action-buttons {
+  display: flex;
+  flex-direction: column; // les boutons s'empilent verticalement
+  align-items: center;
+  gap: 6px;
+}
+
+.header-title {
+  margin-bottom: 20px;
+  h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #000000;
+    text-transform: uppercase;
+    border-left: 5px solid #000;
+    padding-left: 10px;
+  }
+}
+// .input-group {
+//   display: flex;
+//   flex-direction: column;
+//   flex: 1;
+//   min-width: 180px;
+
+//   label {
+//     font-weight: 500;
+//     margin-bottom: 4px;
+//     color: #000;
+//   }
+
+//   input {
+//     padding: 8px;
+//     border: 1px solid #ccc;
+//     border-radius: 5px;
+//   }
+// }

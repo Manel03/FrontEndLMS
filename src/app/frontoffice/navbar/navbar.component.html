@@ -1,0 +1,45 @@
+<nav class="navbar">
+    <div class="logo">
+      <img src="./assets/images/logos/actialogo.png" alt="Actia Logo" />
+    </div>
+  
+    <ul class="nav-menu">
+      <li><a routerLink="/front-office/homelms">FORMATION</a></li>
+      <li><a href="#">CARRIERE</a></li>
+      <li><a href="#">PERFORMANCES</a></li>
+    </ul>
+  
+    <span class="flex-1-auto"></span>
+    <p style="
+      margin-right: 16px;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 500;
+      font-size: 16px;
+      color: #fdfcfc;
+    ">
+      {{user?.firstName}} {{user?.lastName}}
+    </p>
+  
+    <!-- Search and Profile Icons on the right side -->
+    <div class="icons-right">
+      <button mat-icon-button aria-label="Search" class="search-icon">
+        <mat-icon class="d-flex align-items-center">search</mat-icon> <!-- Search icon -->
+      </button>
+  
+      <button mat-icon-button [matMenuTriggerFor]="profilemenu" aria-label="Profile" class="profile-icon">
+        <mat-icon class="d-flex align-items-center">person</mat-icon> <!-- Person icon -->
+      </button>
+    </div>
+  
+    <mat-menu #profilemenu="matMenu" class="topbar-dd cardWithShadow">
+      <button mat-menu-item>
+        <mat-icon class="d-flex align-items-center">person</mat-icon> My Profile
+      </button>
+      <div class="p-x-12 m-t-12">
+        <button (click)="logout()" mat-stroked-button color="primary" class="w-100">
+          Logout
+        </button>
+      </div>
+    </mat-menu>
+  </nav>
+  

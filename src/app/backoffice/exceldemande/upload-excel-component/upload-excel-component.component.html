@@ -1,0 +1,33 @@
+<div class="container">
+    <!-- Input File with styled design -->
+    <label class="upload-label">
+      📂 Importer un fichier Excel
+      <input type="file" (change)="onFileChange($event)" accept=".xlsx, .xls" />
+    </label>
+     
+    <!-- Refresh Excel button -->
+    <button (click)="refreshExcel()" class="refresh-btn">Rafraîchir Excel</button>
+  
+    <form [formGroup]="form">
+      <div formArrayName="users" class="user-container">
+        <div *ngFor="let user of users.controls; let i = index" [formGroupName]="i" class="user-card">
+          <h3>{{ user.value.nom }} {{ user.value.prenom }}</h3>
+
+          <input formControlName="nom" placeholder="Nom" />
+          <input formControlName="prenom" placeholder="Prénom" />
+          <input formControlName="email" placeholder="Email" />
+          <input formControlName="nomFormation" placeholder="Nom de formation" />
+          <input formControlName="departement" placeholder="Département" />
+          <input formControlName="nomEquipe" placeholder="Nom d'équipe" />
+        </div>
+      </div>
+    </form>
+  
+    <!-- Pagination Controls -->
+    <div class="pagination">
+      <button (click)="prevPage()" [disabled]="page === 1">Précédent</button>
+      <span>Page {{ page }}</span>
+      <button (click)="nextPage()" [disabled]="page * usersPerPage >= allUsers.length">Suivant</button>
+    </div>
+  </div>
+  

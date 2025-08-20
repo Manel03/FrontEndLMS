@@ -1,0 +1,63 @@
+<app-menufront></app-menufront>
+<div class="historique-background">
+<div class="historique-container">
+  <h2>Historique de mes demandes</h2>
+
+  <div *ngIf="isLoading" class="loading">
+    <div class="spinner"></div>
+    <p>Chargement de vos demandes...</p>
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="!isLoading && inscriptions.length === 0 && !errorMessage" class="no-data">
+    <p>Aucune demande de formation trouvée.</p>
+  </div>
+
+  <div *ngIf="!isLoading && inscriptions.length > 0" class="inscriptions-list">
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Formation</th>
+            <th>Date de demande</th>
+            <th>Statut</th>
+            <th>Validateur</th>
+            <th>Motif</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let inscription of inscriptions">
+            <td>{{ inscription.formation?.formationNom || 'Non spécifié' }}</td>
+            <td>{{ inscription.dateInscription | date: 'dd/MM/yyyy' }}</td>
+            <td>
+              <span [ngClass]="getStatusClass(inscription.statut)">
+                {{ inscription.etat }}
+              </span>
+
+              <button *ngIf="inscription.statut === 'REJETER'" (click)="openMotifDialog(inscription.motif)">
+                Voir le motif
+              </button>
+            </td>
+            <td>
+              {{
+                inscription.validateurId
+                  ? (inscription.validateurId | user  | async) 
+                  : (inscription.validateurs?.length > 0
+                      ? (inscription.validateurs[inscription.validateurs.length - 1] | user | async)
+                      : '')
+              }}
+            </td>
+            <td>{{inscription.motif}}</td>
+            
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+<app-footer></app-footer>

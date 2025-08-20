@@ -1,0 +1,246 @@
+$primary-color: #000000; // Black for headers
+$secondary-color: #ffffff; // White for backgrounds
+$accent-color: #388e3c; // Vibrant green for highlights
+$text-color: #333333; // Softer gray for text
+$background-light: #fafafa; // Light off-white for backgrounds
+$shadow-color: rgba(0, 0, 0, 0.1); // Lighter shadow
+$border-radius: 6px; // Slightly rounded corners
+$transition: all 0.25s ease; // Smooth transitions
+
+// Global Typography
+body {
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.6;
+  color: $text-color;
+  background: $secondary-color;
+}
+
+// Formation Background
+.formation-background {
+  position: relative;
+  padding: 2.5rem 1rem;
+  background-image: url('/assets/images/backgrounds/greenwalppaper.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255, 255, 255, 0.85); // Un filtre blanc semi-transparent
+    z-index: -1;
+  }
+}
+
+
+// Formation Detail Card
+.formation-detail {
+  max-width: 950px;
+  margin: 0 auto;
+  background: $secondary-color;
+  border-radius: $border-radius;
+  box-shadow: 0 6px 20px $shadow-color;
+  transition: $transition;
+
+  .header {
+    background: rgb(0, 0, 0);
+    border-radius: $border-radius $border-radius 0 0;
+    padding: 1.75rem;
+    text-align: center;
+
+    h2 {
+      font-size: 2.2rem;
+      color: $secondary-color;
+      margin: 0;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+  }
+
+  .content {
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+
+    .formation-image {
+      max-width: 450px;
+      width: 100%;
+      height: auto;
+      margin: 0 auto;
+      border-radius: $border-radius;
+      box-shadow: 0 4px 10px $shadow-color;
+      transition: $transition;
+
+      &:hover {
+        transform: scale(1.03);
+      }
+    }
+    .button-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap; // Pour s’adapter en responsive
+  
+      .back-button {
+        flex: 1; // Optionnel : donne une largeur égale aux deux boutons
+      }
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+
+      .info-item {
+        background: $background-light;
+        padding: 1.25rem;
+        border-radius: $border-radius;
+        transition: $transition;
+
+        &:hover {
+          background: rgba($accent-color, 0.1);
+          transform: translateY(-2px);
+        }
+
+        .label {
+          font-size: 0.9rem;
+          font-weight: 500;
+          color: $accent-color;
+          margin-bottom: 0.5rem;
+          letter-spacing: 0.05em;
+        }
+
+        p {
+          margin: 0;
+          font-size: 1rem;
+          color: $text-color;
+          line-height: 1.5;
+        }
+      }
+    }
+
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.85rem 2rem;
+      background: $accent-color;
+      color: $secondary-color;
+      border: none;
+      border-radius: $border-radius;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: $transition;
+      letter-spacing: 0.05em;
+
+      &:hover {
+        background: darken($accent-color, 10%);
+        transform: translateY(-2px);
+      }
+
+      &:active {
+        transform: scale(0.98);
+      }
+    }
+  }
+}
+
+// Similar Formations Section
+.similar-formations {
+  max-width: 1000px;
+  margin: 2.5rem auto;
+  padding: 0 1rem;
+
+  h3 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: $primary-color;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    letter-spacing: 0.02em;
+  }
+
+  .cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .formation-card {
+    background: $secondary-color;
+    border-radius: $border-radius;
+    box-shadow: 0 4px 12px $shadow-color;
+    transition: $transition;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 16px $shadow-color;
+    }
+
+    .card-image {
+      width: 100%;
+      height: 260px;
+      object-fit: container;
+      border-radius: $border-radius $border-radius 0 0;
+    }
+
+    .card-info {
+      padding: 1.25rem;
+
+      h4 {
+        font-size: 1.2rem;
+        font-weight: 500;
+        color: $primary-color;
+        margin: 0 0 0.75rem;
+        letter-spacing: 0.02em;
+      }
+
+      p {
+        font-size: 0.9rem;
+        color: $text-color;
+        margin: 0 0 0.75rem;
+        line-height: 1.5;
+      }
+
+      .detail-link {
+        display: inline-flex;
+        align-items: center;
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: $accent-color;
+        text-decoration: none;
+        transition: $transition;
+
+        &:hover {
+          color: darken($accent-color, 10%);
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .formation-detail {
+    margin: 1rem;
+    .header h2 {
+      font-size: 1.8rem;
+    }
+    .content {
+      padding: 1.5rem;
+      .formation-image {
+        max-width: 100%;
+      }
+    }
+  }
+
+  .similar-formations {
+    .cards-container {
+      grid-template-columns: 1fr;
+    }
+  }
+}

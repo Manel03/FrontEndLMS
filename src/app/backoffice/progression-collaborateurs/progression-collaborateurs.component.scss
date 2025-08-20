@@ -1,0 +1,69 @@
+.container {
+  padding: 2rem;
+  background-color: #fff;
+  color: #000;
+}
+
+.card {
+  background-color: #f8f8f8;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.progressions-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: flex-start;
+  margin-top: 1rem;
+}
+
+.circle-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 140px; // largeur du bloc cercle + titre
+}
+
+.circular-container {
+  width: 120px;
+  height: 120px;
+}
+
+.circular-progress {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg); // tourne uniquement le cercle, pas le texte
+}
+
+.circular-progress .bg {
+  fill: none;
+  stroke: #e6e6e6;
+  stroke-width: 4.5;
+}
+
+.circular-progress .progress {
+  fill: none;
+  stroke: #2ecc71; // vert principal
+  stroke-width: 4.5;
+  stroke-linecap: round;
+  transition: stroke-dasharray 0.6s ease;
+}
+
+.circular-progress .percentage {
+  fill: #000;
+  font-size: 0.4rem;
+  text-anchor: middle;
+  dominant-baseline: central;
+  transform: rotate(90deg); // remet le texte horizontal
+  transform-origin: center;
+}
+
+.formation-nom {
+  font-size: 0.9rem;
+  text-align: center;
+  margin-top: 0.5rem;
+  color: #000;
+}

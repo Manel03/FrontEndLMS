@@ -1,0 +1,223 @@
+/* Override Angular Material theme for icons globally */
+:host ::ng-deep .mat-icon,
+:host ::ng-deep .mat-list-item .mat-icon,
+:host ::ng-deep .mat-list-item-content .mat-icon {
+  color: #ffffff !important; /* Force white for Material icons */
+}
+
+/* Ensure Font Awesome icons are white by default globally */
+:host ::ng-deep [class*="fa-"],
+:host ::ng-deep [class*="fa-"] svg,
+:host ::ng-deep [class*="fa-"] svg path,
+:host ::ng-deep [class*="fa-"] svg g {
+  color: #ffffff !important; /* Force white color */
+  fill: #ffffff !important; /* Force white fill */
+}
+
+/* Sidebar Container */
+.flex-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: #000000; /* Dark black-gray cyberpunk background */
+  color: #ffffff !important; /* Ensure white text */
+  font-family: 'Orbitron', sans-serif; /* Futuristic font */
+}
+
+/* Sidebar List */
+.sidebar-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+/* Override Angular Material mat-nav-list default styles */
+:host ::ng-deep .sidebar-list {
+  color: #ffffff !important; /* Ensure white text for the list */
+}
+
+/* Override Angular Material mat-list-item styles */
+:host ::ng-deep .mat-list-item {
+  color: #ffffff !important; /* Force white text for list items */
+}
+
+/* Target the content inside mat-list-item */
+:host ::ng-deep .mat-list-item-content {
+  color: #ffffff !important; /* Force white text for content */
+}
+
+/* Target any icons within mat-list-item to ensure they are white */
+:host ::ng-deep .mat-list-item .mat-icon,
+:host ::ng-deep .mat-list-item fa-icon,
+:host ::ng-deep .mat-list-item fa-icon svg,
+:host ::ng-deep .mat-list-item fa-icon svg path,
+:host ::ng-deep .mat-list-item fa-icon svg g {
+  color: #ffffff !important; /* Force white color for icons */
+  fill: #ffffff !important; /* Force white fill for SVG icons */
+}
+
+/* Navigation Item Styling */
+app-nav-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  background-color: transparent;
+  color: #ffffff !important; /* Ensure white text */
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Target child elements within app-nav-item to ensure text is white */
+:host ::ng-deep app-nav-item span,
+:host ::ng-deep app-nav-item a,
+:host ::ng-deep app-nav-item div {
+  color: #ffffff !important; /* Force white text for any child elements */
+}
+
+/* Target icons within app-nav-item explicitly */
+:host ::ng-deep app-nav-item fa-icon,
+:host ::ng-deep app-nav-item fa-icon svg,
+:host ::ng-deep app-nav-item fa-icon svg path,
+:host ::ng-deep app-nav-item fa-icon svg g {
+  color: #ffffff !important; /* Force white color for icons */
+  fill: #ffffff !important; /* Force white fill for SVG icons */
+}
+
+/* Hover Effect with Neon Glow */
+app-nav-item:hover {
+  background-color: #00ff88; /* Neon green background on hover */
+  color: #000000 !important; /* Black text for contrast */
+  box-shadow: 0 0 10px #00ff88, 0 0 20px #00ff88; /* Neon glow effect */
+}
+
+/* Ensure child elements follow hover state */
+:host ::ng-deep app-nav-item:hover span,
+:host ::ng-deep app-nav-item:hover a,
+:host ::ng-deep app-nav-item:hover div {
+  color: #000000 !important; /* Black text for contrast on hover */
+}
+
+/* Ensure icons follow hover state */
+:host ::ng-deep app-nav-item:hover fa-icon,
+:host ::ng-deep app-nav-item:hover fa-icon svg,
+:host ::ng-deep app-nav-item:hover fa-icon svg path,
+:host ::ng-deep app-nav-item:hover fa-icon svg g {
+  color: #000000 !important; /* Black icons on hover */
+  fill: #000000 !important; /* Black fill on hover */
+}
+
+/* Active Menu Item Styling */
+app-nav-item.active {
+  background-color: #00cc66; /* Darker neon green for active state */
+  color: #000000 !important; /* Black text for contrast */
+  box-shadow: 0 0 15px #00ff88; /* Persistent glow for active state */
+}
+
+/* Ensure child elements follow active state */
+:host ::ng-deep app-nav-item.active span,
+:host ::ng-deep app-nav-item.active a,
+:host ::ng-deep app-nav-item.active div {
+  color: #000000 !important; /* Black text for contrast in active state */
+}
+
+/* Ensure icons stay visible in active state */
+app-nav-item.active fa-icon {
+  color: #ffffff !important; /* White icons for visibility */
+}
+
+/* Ensure the SVG follows active state */
+:host ::ng-deep app-nav-item.active fa-icon svg,
+:host ::ng-deep app-nav-item.active fa-icon svg path,
+:host ::ng-deep app-nav-item.active fa-icon svg g {
+  color: #ffffff !important; /* White SVG color for visibility */
+  fill: #ffffff !important; /* White SVG fill for visibility */
+}
+
+/* Styling for Section Titles */
+.nav-section-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: #ffffff !important; /* Ensure white */
+  padding: 12px 16px;
+  background-color: #1a1a1a; /* Matches sidebar background */
+  border-bottom: 1px solid #00ff88; /* Neon green border */
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* Icon Styling */
+fa-icon {
+  margin-right: 16px;
+  color: #ffffff !important; /* Ensure white icons */
+  fill: #ffffff !important; /* Ensure white fill */
+  transition: color 0.2s ease, fill 0.2s ease;
+}
+
+/* Target the rendered icon element and its SVG with maximum specificity */
+:host ::ng-deep fa-icon,
+:host ::ng-deep fa-icon svg,
+:host ::ng-deep fa-icon svg path,
+:host ::ng-deep fa-icon svg g,
+:host ::ng-deep fa-icon i {
+  color: #ffffff !important; /* Ensure white color */
+  fill: #ffffff !important; /* Ensure white SVG fill */
+}
+
+/* Hover effect for icons */
+app-nav-item:hover fa-icon {
+  color: #000000 !important; /* Black icons on hover for contrast */
+  fill: #000000 !important; /* Black fill on hover */
+}
+
+/* Ensure the SVG follows hover state */
+:host ::ng-deep app-nav-item:hover fa-icon svg,
+:host ::ng-deep app-nav-item:hover fa-icon svg path,
+:host ::ng-deep app-nav-item:hover fa-icon svg g {
+  color: #000000 !important; /* Black SVG color on hover */
+  fill: #000000 !important; /* Black SVG fill on hover */
+}
+
+/* Branding Section (Logo) */
+app-branding {
+  padding: 20px;
+  background-color: #000000; /* Pure black for branding area */
+  text-align: center;
+  border-bottom: 1px solid #00ff88; /* Neon green border */
+  color: #ffffff !important; /* Ensure white */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  position: relative;
+}
+
+/* Neon glow effect for branding */
+app-branding::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #00ff88;
+  box-shadow: 0 0 10px #00ff88;
+}
+
+/* Center the image and adjust its size */
+app-branding img {
+  max-width: 100%;
+  height: auto;
+  width: 200px;
+  height: 60px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 5px #00ff88); /* Neon green glow around logo */
+}
+:host ::ng-deep i-tabler svg,
+:host ::ng-deep i-tabler svg path {
+  // fill: #000000 !important;
+  color: #ffffff !important;
+}

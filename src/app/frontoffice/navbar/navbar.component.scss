@@ -1,0 +1,72 @@
+.navbar {
+    background-color: #000000;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  
+    .logo {
+      img {
+        height: 40px;  // Adjust size as needed
+        width: auto;
+      }
+    }
+  
+    .nav-menu {
+      list-style: none;
+      display: flex;
+      gap: 30px;  // Space between items
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);  // This will center the menu
+      margin: 0;
+    }
+  
+    .nav-menu li {
+      a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: bold;  // Make text bold
+        text-transform: uppercase;  // Make text uppercase
+  
+        &:hover {
+          color: #44A01B;
+        }
+      }
+    }
+  
+    .flex-1-auto {
+      flex: 1 1 auto; // Ensure this spans the available space
+    }
+  
+    .icons-right {
+      display: flex;
+      gap: 20px;  // Space between the search and profile icons
+      align-items: center;
+    }
+  
+    .search-icon,
+    .profile-icon {
+      color: #fff;  // White color for both icons
+    }
+  
+    .topbar-dd {
+      .mat-menu-item {
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+      }
+  
+      .p-x-12 {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+  
+      .m-t-12 {
+        margin-top: 12px;
+      }
+    }
+  }
+  

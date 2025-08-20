@@ -1,0 +1,82 @@
+<app-showactualitedetail #formationDetailsModal></app-showactualitedetail>
+<div class="header-title">
+  <h2>Gestion des Actualites</h2>
+</div>
+<fieldset class="search-filters">
+  <legend>Recherche</legend>
+  <div class="search-fields">
+    <div class="first-row">
+      <div class="input-group-horizontal">
+        <label for="nom">Nom formation</label>
+        <input id="nom" type="text" pInputText [(ngModel)]="searchNom" placeholder="Nom formation" />
+      </div>
+      <div class="input-group-horizontal">
+        <label for="dateDebut">Date début</label>
+        <input id="dateDebut" type="date" pInputText [(ngModel)]="searchDateDebut" />
+      </div>
+      <div class="input-group-horizontal">
+        <label for="dateFin">Date fin</label>
+        <input id="dateFin" type="date" pInputText [(ngModel)]="searchDateFin" />
+      </div>
+    </div>
+    
+    
+
+    <div class="second-row">
+      <div class="buttons">
+        <button pButton label="Rechercher" icon="pi pi-search" (click)="filterActualites()" class="p-button-sm"></button>
+        <button pButton label="Réinitialiser" icon="pi pi-refresh" (click)="resetFilters()" class="p-button-secondary p-button-sm"></button>
+      </div>
+    </div>
+  </div>
+</fieldset>
+<p-table
+  
+  [value]="filteredActualites"
+
+  [paginator]="true"
+  [rows]="5"
+  [responsiveLayout]="'scroll'"
+  [style]="{ 'background-color': '#fff', 'border-radius': '12px' }"
+  class="p-datatable-striped"
+>
+
+
+
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Image</th>
+      <th>Nom Formation</th>
+      <th>Date Début</th>
+      <th>Date Fin</th>
+      <th>
+        <!-- Bouton pour ouvrir la modale -->
+        <button pButton type="button" icon="pi pi-plus" label="Actions" (click)="openAddModal()" class="add-user-button"></button>
+
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-actu>
+    <tr>
+      <td><img [src]="getImageUrl(actu.image)" alt="Image de la formation" class="formation-image" />
+      </td>
+      <td>{{ actu.formationNom }}</td>
+      <td>{{ actu.dateDebut | date: 'dd/MM/yyyy' }}</td>
+      <td>{{ actu.dateFin | date: 'dd/MM/yyyy' }}</td>
+      <td class="action-buttons">
+        <div style="display: flex; gap: 4px;">
+          <button pButton type="button" icon="pi pi-pencil" (click)="openEditModal(actu)"></button>
+          
+          <button pButton type="button" icon="pi pi-info-circle" (click)="showFormationDetails(actu, formationDetailsModal)"
+          ></button>
+
+          <button pButton type="button" icon="pi pi-trash" (click)="deleteActualite(actu)"></button>
+
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+
+

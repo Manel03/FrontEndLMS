@@ -1,0 +1,221 @@
+
+.banner-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  height: 350px;
+}
+
+.banner-image {
+  width: 100%;
+  height: 100%;
+  position: relative;
+
+  img {
+    width: 100vw; // correspond à toute la largeur de la fenêtre
+    height: 100%;
+    object-fit: cover;
+    animation: slidePan 20s ease-in-out infinite alternate;
+  }
+
+  .banner-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+
+    .title-small {
+      font-size: 32px;
+      letter-spacing: 4px;
+      font-weight: 400;
+      margin: 0;
+      text-transform: uppercase;
+      font-family: 'Helvetica Neue', sans-serif;
+    }
+
+    .title-big {
+      font-size: 60px;
+      font-weight: 700;
+      margin: 10px 0 0;
+      font-family: 'Arial Black', 'Segoe UI', sans-serif;
+    }
+  }
+}
+
+
+.formation-section {
+  text-align: center;
+  margin: 50px auto;
+  max-width: 900px;
+
+  .formation-title {
+    font-size: 48px;
+    font-weight: 700;
+    color: #2b2b2b;
+    margin-bottom: 10px;
+    position: relative;
+    display: inline-block;
+
+    &::after {
+      content: '';
+      display: block;
+      width: 600px;
+      height: 4px;
+      background: linear-gradient(90deg, #00796b, #1a9709);
+      margin: 20px auto 0;
+      border-radius: 2px;
+    }
+  }
+
+  .formation-subtitle {
+    font-size: 18px;
+    color: #666;
+    margin-top: 10px;
+    font-style: italic;
+  }
+}
+.section-header {
+  font-size: 36px;
+  font-weight: 600;
+  text-align: center;
+  color:#2b2b2b;
+  margin-bottom: 30px;
+  position: relative;
+  font-family: 'Segoe UI', sans-serif;
+
+  &::after {
+    content: '';
+    display: block;
+    width: 120px;
+    height: 4px;
+    background: linear-gradient(90deg, #00796b, #4caf50);
+    margin: 12px auto 0;
+    border-radius: 2px;
+  }
+}
+@keyframes slidePan {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-2%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.formation-card {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+  border: 1px solid #eee;
+  height: 100%; // pour que la carte s'étende à la hauteur max disponible
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; // pour répartir l'espace
+
+  min-height: 520px; // ✅ adapte selon le contenu moyen
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .formation-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .formation-title {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #333;
+  }
+
+  .formation-dates {
+    font-size: 0.9rem;
+  // } +++++++++++
+  
+}
+
+
+
+.feedback-section {
+  background-color: #fafafa;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+  text-align: left;
+   margin-top: 10px !important; // réduit l’espace vide au-dessus
+  padding: 15px 20px;
+
+  .feedback-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #2b2b2b;
+  }
+
+  .stars {
+    font-size: 24px;
+    cursor: pointer;
+    color: #ccc;
+    user-select: none;
+    margin-bottom: 15px;
+
+    .star {
+      transition: color 0.2s ease;
+      margin: 0 4px;
+    }
+
+    .star.filled {
+      color: #f39c12;
+    }
+  }
+
+  .feedback-textarea {
+    resize: none;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    padding: 12px;
+    width: 100%; // ou plus si besoin
+   max-width: 100%;
+    font-size: 14px;
+    transition: border-color 0.3s;
+
+    &:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+  }
+
+  .feedback-btn {
+    display: block;
+    width: 100%;
+    margin-top: 12px;
+    background: linear-gradient(90deg, #00796b, #4caf50);
+    color: white;
+    font-weight: 600;
+    padding: 10px 0;
+    border: none;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+
+    &:hover:not(:disabled) {
+      background: linear-gradient(90deg, #00695c, #43a047);
+    }
+
+    &:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+  }
+}
+
+}

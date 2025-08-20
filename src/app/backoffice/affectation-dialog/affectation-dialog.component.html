@@ -1,0 +1,17 @@
+<h3>Affecter des utilisateurs à la formation</h3>
+
+<p-multiSelect
+  [options]="users"
+  [(ngModel)]="selectedUsers"
+  optionLabel="firstName"
+  display="chip"
+  placeholder="Sélectionner des utilisateurs">
+</p-multiSelect>
+<br>
+<br>
+<br>
+<div style="margin-top: 1rem; display: flex; justify-content: flex-end; gap: 10px;">
+  <button pButton label="Annuler" class="p-button-secondary" (click)="cancel()"></button>
+  <button pButton label="Valider" class="p-button-success" [disabled]="!selectedUsers.length"
+ (click)="confirm()"></button>
+</div>

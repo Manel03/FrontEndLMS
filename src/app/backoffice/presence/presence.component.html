@@ -1,0 +1,97 @@
+<div class="presence-container">
+  <h2>Enregistrement des présences</h2>
+
+  <!-- Affichage des messages -->
+  <div *ngIf="errorMessage" class="alert-message error">{{ errorMessage }}</div>
+  <div *ngIf="successMessage" class="alert-message success">{{ successMessage }}</div>
+
+  <!-- Sélection de la formation -->
+  <div class="form-group">
+    <label for="formationSelect">Sélectionner une formation :</label>
+    <select
+      id="formationSelect"
+      [(ngModel)]="selectedFormationId"
+      (change)="onFormationChange()"
+    >
+      <option [value]="null" disabled>Sélectionner une formation</option>
+      <option *ngFor="let formation of formations" [value]="formation.id">
+        {{ formation.formationNom }} ({{ formation.dateDebut | date:'dd/MM/yyyy' }} - {{ formation.dateFin | date:'dd/MM/yyyy' }})
+      </option>
+    </select>
+  </div>
+
+  <!-- Sélection de la date -->
+  <div class="form-group">
+    <label for="datePresence">Date de la présence :</label>
+    <input
+      id="datePresence"
+      type="date"
+      [(ngModel)]="selectedDate"
+      (change)="onDateChange()"
+      [min]="dateMin"
+      [max]="dateMax"
+    />
+  </div>
+
+  <!-- Liste des inscrits -->
+  <div *ngIf="inscrits.length > 0" class="inscrits-section">
+    <h4>Participants inscrits</h4>
+    <table class="styled-table">
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Présent</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let inscrit of inscrits">
+          <td>{{ inscrit.userId | user | async }}</td>
+          <td>
+            <input
+              type="checkbox"
+              *ngIf="inscrit.id !== undefined"
+              [(ngModel)]="presences[inscrit.id]"
+              [disabled]="estDejaPresent(inscrit.id)"
+            />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button
+      class="submit-btn"
+      (click)="enregistrerPresences()"
+      [disabled]="!selectedFormationId || !inscrits.length"
+    >
+      Enregistrer les présences
+    </button>
+  </div>
+
+  <div *ngIf="selectedFormationId && inscrits.length === 0" class="alert-message info">
+    Aucun participant inscrit pour cette formation.
+  </div>
+</div>
+
+<!-- Présences déjà marquées -->
+<div *ngIf="presencesExistantes.length > 0" class="presence-history">
+  <h4>Participants déjà marqués comme présents le {{ selectedDate }}</h4>
+  <table class="styled-table small">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Date</th>
+        <th>Présent</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let presence of presencesExistantes">
+       <td>{{ presence.inscrit.userId | user | async }}</td>
+
+        <td>{{ presence.datePresence | date:'dd/MM/yyyy' }}</td>
+        <td>{{ presence.estPresent ? '✔️ Oui' : '❌ Non' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+

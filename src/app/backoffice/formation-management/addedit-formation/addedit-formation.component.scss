@@ -1,0 +1,119 @@
+.page-container {
+  background: linear-gradient(to right, #f9f9f9, #e6f0ff);
+  color: #333;
+  padding: 3rem;
+  border-radius: 1.5rem;
+  max-width: 1000px;
+  margin: 2rem auto;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  
+  .title-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center; // ou 'flex-start' si ton titre est à gauche
+    margin-bottom: 2rem;
+  
+    h2 {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #040405;
+      margin: 0;
+    }
+  
+    .title-gif {
+      position: absolute;
+      right: 0; // 🍒 La différence est ici !
+      width: 100px;
+      height: auto;
+    }
+  }
+  
+  
+  
+ 
+  form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+
+      label {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: #0b0b0c;
+      }
+
+      input,
+      textarea,
+      select {
+        padding: 0.8rem;
+        background-color: #fff;
+        color: #333;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 1rem;
+        box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+
+        &:focus {
+          border-color: #007b3e;
+          box-shadow: 0 0 0 3px rgba(0, 85, 170, 0.2);
+        }
+      }
+
+      input[type="checkbox"] {
+        width: auto;
+        margin-top: 0.5rem;
+        transform: scale(1.2);
+        accent-color: #007b3e;
+      }
+    }
+
+    .form-group:nth-child(2) { // Image
+      grid-column: span 2;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+    }
+
+    .file-input {
+      border: none;
+      padding: 0.5rem;
+      font-size: 0.95rem;
+    }
+
+    .button-group {
+      grid-column: span 2;
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 2rem;
+
+      button {
+        background-color: #000000 !important;
+        color: #fff !important;
+        border: none;
+        padding: 0.8rem 2rem;
+        border-radius: 8px;
+        font-weight: bold;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s;
+
+        &:hover {
+          background-color: #007b3e !important;
+          transform: translateY(-2px);
+        }
+
+        &:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+}

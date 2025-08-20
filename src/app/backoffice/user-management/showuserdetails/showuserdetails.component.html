@@ -1,0 +1,22 @@
+<p-dialog [(visible)]="display" [modal]="true" [header]="'Détails de l\'utilisateur'" [style]="{width: '500px'}">
+  <div *ngIf="user">
+    <p><strong>Nom d'utilisateur:</strong> {{ user.username }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Prénom:</strong> {{ user.firstName }}</p>
+    <p><strong>Nom:</strong> {{ user.lastName }}</p>
+    <p><strong>Statut:</strong> {{ user.enabled ? 'Actif' : 'Désactivé' }}</p>
+  
+    
+    
+    <div *ngIf="user && user.details">
+      <p><strong>Département:</strong> {{ user.details.departement }}</p>
+      <p><strong>Téléphone:</strong> {{ user.details.telephone }}</p>
+      <p><strong>Poste:</strong> {{ user.details.poste }}</p>
+    </div>
+    
+  </div>
+  
+  <p-footer>
+    <button pButton type="button" label="Fermer" (click)="closeModal()"></button>
+  </p-footer>
+</p-dialog>
