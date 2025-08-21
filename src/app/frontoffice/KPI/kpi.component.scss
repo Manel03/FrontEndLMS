@@ -1,0 +1,245 @@
+.dashboard-container {
+  padding: 2rem;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  font-family: 'Segoe UI', sans-serif;
+  max-width: 1200px;
+  margin: auto;
+
+  h2 {
+    font-size: 26px;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    color: #222;
+  }
+
+  .export-btn {
+    background-color: #3b82f6;
+    color: #fff;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    font-size: 14px;
+    margin-bottom: 1.5rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    float: right;
+
+    &:hover {
+      background-color: #2563eb;
+    }
+  }
+
+  .kpis {
+  padding: 0 30px;  // Ajoute une marge intérieure à gauche et à droite
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+
+  .kpi {
+    background: #f3f6fc;
+    border-radius: 8px;
+    padding: 12px 20px;
+    flex: 1 1 250px;
+    font-weight: 500;
+  }
+}
+  .filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+
+    .filter-item {
+      display: flex;
+      flex-direction: column;
+      min-width: 200px;
+
+      label {
+        margin-bottom: 4px;
+        font-weight: 600;
+        color: #444;
+      }
+
+      select,
+      input[type="date"] {
+        padding: 8px 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+    }
+
+    .buttons {
+      display: flex;
+      align-items: end;
+      gap: 0.6rem;
+
+      .btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 5px;
+        color: #fff;
+        font-weight: 600;
+        cursor: pointer;
+
+        &.search {
+          background-color: #007bff;
+          &:hover {
+            background-color: #0056b3;
+          }
+        }
+
+        &.reset {
+          background-color: #dc3545;
+          &:hover {
+            background-color: #a71d2a;
+          }
+        }
+      }
+    }
+  }
+
+  .charts-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+
+    .chart {
+      height: 320px;
+      background-color: #fefefe;
+      border-radius: 8px;
+      padding: 1rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+  }
+  .export-btn.green {
+  background-color: #10b981; // vert
+  margin-left: 10px;
+
+  &:hover {
+    background-color: #059669;
+  }
+}
+.dashboard-wrapper {
+  display: flex;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+}
+
+.right-sidebar {
+  width: 220px;
+  background-color: #f7f7f7;
+  border-left: 1px solid #ddd;
+  padding: 16px;
+  font-size: 14px;
+}
+
+.right-sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.right-sidebar li {
+  cursor: pointer;
+  margin: 8px 0;
+  padding: 8px;
+  border-radius: 6px;
+}
+
+.right-sidebar li.active {
+  background-color: #0d6efd;
+  color: white;
+}
+.main-content {
+  flex: 1;
+  padding: 20px;
+}
+
+.sidebar-right {
+  width: 220px;
+  background: #f8f9fa;
+  padding: 16px;
+  border-left: 1px solid #ccc;
+}
+
+.sidebar-right ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar-right li {
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.sidebar-right li.active {
+  background-color: #007bff;
+  color: white;
+}
+.kpi-selector ul {
+  list-style: none;
+  padding: 0;
+}
+
+.kpi-selector li {
+  cursor: pointer;
+  padding: 8px;
+  border-left: 4px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.kpi-selector li.active {
+  border-left: 4px solid #007bff;
+  background-color: #f1f5ff;
+  font-weight: bold;
+}
+.dashboard-layout {
+  display: flex;
+  gap: 20px;
+}
+
+.side-menu {
+  width: 200px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  padding: 16px;
+
+  .avatar {
+    width: 64px;
+    border-radius: 50%;
+    margin-bottom: 16px;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      padding: 8px 12px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+
+      &:hover,
+      &.active {
+        background-color: #e5f0ff;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.dashboard-content {
+  flex: 1;
+}
+
+
+}

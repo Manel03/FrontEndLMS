@@ -10,6 +10,8 @@ import { ShowformationdetailsofficeComponent } from './Formations/showformationd
 import { HistoriqueDemandeComponent } from './historique-demande/historique-demande.component';
 import { HistoriqueformationsComponent } from './historiqueformations/historiqueformations.component';
 import { ProgressionComponent } from './progression/progression.component';
+import { kpiComponent } from './KPI/kpi.component';
+
 
 const routes: Routes = [
 
@@ -32,6 +34,13 @@ const routes: Routes = [
     component: FormationComponent,
     data: {
       title: 'home lms',
+    },
+  },
+   {
+    path: 'dashboard',
+    component: kpiComponent,
+    data: {
+      title: 'dashboard lms',
     },
   },
   {

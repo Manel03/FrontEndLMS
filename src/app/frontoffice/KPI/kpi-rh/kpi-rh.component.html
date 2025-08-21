@@ -1,0 +1,471 @@
+
+<div class="kpi-container-full">
+  <!-- Header Section -->
+  <div class="dashboard-header">
+    <div class="header-content">
+      <h1 class="dashboard-title">
+        <span class="title-icon">🏢</span>
+        Tableau de Bord RH
+      </h1>
+      <p class="dashboard-subtitle">
+         Analyse Intelligente des Performances
+      </p>
+    </div>
+
+    <div class="header-actions">
+      <button class="action-btn primary" (click)="exportToExcel()">
+        <span class="btn-icon">📊</span>
+        Export Excel
+      </button>
+      <button class="action-btn secondary" (click)="exportDashboardAsPdf()">
+        <span class="btn-icon">📄</span>
+        Rapport PDF
+      </button>
+      <button class="action-btn warning" (click)="generateRiskReport()">
+        <span class="btn-icon">⚠️</span>
+        Rapport Risques
+      </button>
+      <button class="action-btn success" (click)="generateComplianceReport()">
+        <span class="btn-icon">✅</span>
+        Audit Conformité
+      </button>
+    </div>
+  </div>
+
+  <!-- Control Panel with Advanced Filters -->
+  <div class="control-panel">
+    <div class="view-controls">
+      <h3>🎛️ Contrôles de Vue</h3>
+      <div class="view-buttons">
+        <button 
+          class="view-btn" 
+          [class.active]="viewMode === 'cards'"
+          (click)="setViewMode('cards')">
+          🃏 Cartes
+        </button>
+        <button 
+          class="view-btn" 
+          [class.active]="viewMode === 'table'"
+          (click)="setViewMode('table')">
+          📋 Tableau
+        </button>
+        <button 
+          class="view-btn" 
+          [class.active]="viewMode === 'summary'"
+          (click)="setViewMode('summary')">
+          📊 Résumé
+        </button>
+      </div>
+    </div>
+
+    <div class="filters-section">
+      <h3>🔍 Filtres Avancés</h3>
+      <div class="filters-grid">
+        <div class="filter-group">
+          <label>Département</label>
+          <select [(ngModel)]="selectedDepartment" (change)="applyFilters()" class="filter-select">
+            <option *ngFor="let dept of departments" [value]="dept">{{ dept }}</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Période</label>
+          <select [(ngModel)]="selectedTimeframe" (change)="applyFilters()" class="filter-select">
+            <option *ngFor="let tf of timeframes" [value]="tf.value">{{ tf.label }}</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Catégorie KPI</label>
+          <select [(ngModel)]="selectedCategory" (change)="applyFilters()" class="filter-select">
+            <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Niveau de Risque</label>
+          <select [(ngModel)]="selectedRiskLevel" (change)="applyFilters()" class="filter-select">
+            <option *ngFor="let risk of riskLevels" [value]="risk">{{ risk }}</option>
+          </select>
+        </div>
+
+        <div class="filter-actions">
+          <button class="clear-filters-btn" (click)="clearFilters()">
+            🔄 Réinitialiser
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Global KPIs Summary -->
+  <div class="kpi-summary-section">
+    <div class="summary-stats">
+      <div class="stat-card">
+        <div class="stat-icon">👥</div>
+        <div class="stat-content">
+          <h3>{{ totalCollaborators }}</h3>
+          <p>Collaborateurs Total</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">📈</div>
+        <div class="stat-content">
+          <h3>{{ averageCompletionRate }}%</h3>
+          <p>Taux Moyen Complétion</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">⏱️</div>
+        <div class="stat-content">
+          <h3>{{ averageTimeBetweenTrainings }}j</h3>
+          <p>Temps Moyen entre Formations</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🎯</div>
+        <div class="stat-content">
+          <h3>{{ activeDepartments }}</h3>
+          <p>Départements Actifs</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🏢</div>
+        <div class="stat-content">
+          <h3>{{ totalInternalTrainings }}</h3>
+          <p>Formations Internes</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">😊</div>
+        <div class="stat-content">
+          <h3>{{ averageSatisfactionRate }}%</h3>
+          <p>Satisfaction Moyenne</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">🕐</div>
+        <div class="stat-content">
+          <h3>{{ totalTrainingHours }}h</h3>
+          <p>Total Heures Formation</p>
+        </div>
+      </div>
+      <div class="stat-card warning">
+        <div class="stat-icon">⚠️</div>
+        <div class="stat-content">
+          <h3>{{ highRiskCollaborators.length }}</h3>
+          <p>Risques Élevés</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cards View -->
+  <div *ngIf="viewMode === 'cards'" class="cards-view">
+    <div class="kpi-grid">
+      <div *ngFor="let kpi of filteredKPIs" class="kpi-card">
+        <div class="kpi-header">
+          <div class="kpi-icon-container">
+            <span class="kpi-icon">{{ kpi.icon }}</span>
+          </div>
+          <div class="kpi-trend">
+            <span class="trend-value" [ngClass]="'trend-' + kpi.trend">
+              {{ kpi.trendValue > 0 ? '+' : '' }}{{ kpi.trendValue }}%
+            </span>
+          </div>
+        </div>
+
+        <div class="kpi-content">
+          <h3 class="kpi-title">{{ kpi.label }}</h3>
+          <div class="kpi-value-container">
+            <span class="kpi-value">{{ kpi.value }}{{ kpi.unit }}</span>
+            <span class="kpi-target">Objectif: {{ kpi.target }}{{ kpi.unit }}</span>
+          </div>
+
+          <div class="kpi-progress-bar">
+            <div
+              class="progress-fill"
+              [style.width.%]="(kpi.value / kpi.target) * 100"
+              [ngClass]="{
+                exceeded: kpi.value > kpi.target,
+                warning: kpi.id === 'at-risk-collaborators' && kpi.value > kpi.target
+              }">
+            </div>
+          </div>
+
+          <p class="kpi-description">{{ kpi.description }}</p>
+          <span class="kpi-category">{{ kpi.category }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table View -->
+  <div *ngIf="viewMode === 'table'" class="table-view">
+    <div class="table-container">
+      <table class="kpi-table">
+        <thead>
+          <tr>
+            <th>KPI</th>
+            <th>Valeur</th>
+            <th>Objectif</th>
+            <th>Tendance</th>
+            <th>Catégorie</th>
+            <th>Performance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let kpi of filteredKPIs">
+            <td>
+              <div class="kpi-info">
+                <span class="kpi-icon">{{ kpi.icon }}</span>
+                <span>{{ kpi.label }}</span>
+              </div>
+            </td>
+            <td class="value-cell">{{ kpi.value }}{{ kpi.unit }}</td>
+            <td class="target-cell">{{ kpi.target }}{{ kpi.unit }}</td>
+            <td class="trend-cell">
+              <span class="trend-indicator" [ngClass]="'trend-' + kpi.trend">
+                {{ kpi.trendValue > 0 ? '+' : '' }}{{ kpi.trendValue }}%
+              </span>
+            </td>
+            <td class="category-cell">{{ kpi.category }}</td>
+            <td class="performance-cell">
+              <div class="performance-bar">
+                <div 
+                  class="performance-fill" 
+                  [style.width.%]="(kpi.value / kpi.target) * 100"
+                  [ngClass]="{ exceeded: kpi.value > kpi.target }">
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Summary View -->
+  <div *ngIf="viewMode === 'summary'" class="summary-view">
+    <div class="summary-grid">
+      <div class="summary-card">
+        <h3>🎯 Performance Globale</h3>
+        <div class="summary-content">
+          <p><strong>Complétion Moyenne:</strong> {{ averageCompletionRate }}%</p>
+          <p><strong>Satisfaction:</strong> {{ averageSatisfactionRate }}%</p>
+          <p><strong>Départements Actifs:</strong> {{ activeDepartments }}/{{ departments.length - 1 }}</p>
+        </div>
+      </div>
+      
+      <div class="summary-card">
+        <h3>⚠️ Alertes & Risques</h3>
+        <div class="summary-content">
+          <p><strong>Collaborateurs à Risque:</strong> {{ alertCollaborators.length }}</p>
+          <p><strong>Risque Élevé:</strong> {{ highRiskCollaborators.length }}</p>
+          <p><strong>Taux de Conformité:</strong> 92%</p>
+        </div>
+      </div>
+
+      <div class="summary-card">
+        <h3>📚 Formations & Évaluations</h3>
+        <div class="summary-content">
+          <p><strong>Formations Internes:</strong> {{ totalInternalTrainings }}</p>
+          <p><strong>Total Heures:</strong> {{ totalTrainingHours }}h</p>
+          <p><strong>Types d'Évaluations:</strong> {{ trainingEvaluations.length }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Enhanced Charts Section -->
+  <div class="charts-section">
+    <div class="charts-grid">
+      <div class="chart-container">
+        <div echarts [options]="globalCompletionChart" class="chart"></div>
+      </div>
+      <div class="chart-container">
+        <div echarts [options]="departmentComparisonChart" class="chart"></div>
+      </div>
+      <div class="chart-container">
+        <div echarts [options]="progressTrendChart" class="chart"></div>
+      </div>
+      <div class="chart-container">
+        <div echarts [options]="satisfactionChart" class="chart"></div>
+      </div>
+      <div class="chart-container">
+        <div echarts [options]="evaluationChart" class="chart"></div>
+      </div>
+      <div class="chart-container">
+        <div echarts [options]="quizTypesChart" class="chart"></div>
+      </div>
+      <div class="chart-container">
+        <div echarts [options]="riskAnalysisChart" class="chart"></div>
+      </div>
+      <div class="chart-container">
+        <div echarts [options]="complianceChart" class="chart"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Training Evaluations Section -->
+  <div class="evaluations-section">
+    <h3 class="section-title">📝 Moyens d'Évaluation - Performance</h3>
+    <div class="evaluations-grid">
+      <div *ngFor="let eval of trainingEvaluations" class="evaluation-card">
+        <div class="eval-header">
+          <span class="eval-icon">
+            {{ eval.type === 'test' ? '📝' : 
+               eval.type === 'kpi' ? '📊' : 
+               eval.type === 'deliverable' ? '📋' : '📊' }}
+          </span>
+          <h4>{{ eval.name }}</h4>
+        </div>
+        <div class="eval-metrics">
+          <div class="metric">
+            <span class="metric-label">Complétion:</span>
+            <span class="metric-value">{{ eval.completionRate }}%</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Score Moyen:</span>
+            <span class="metric-value">{{ eval.averageScore }}/100</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Participants:</span>
+            <span class="metric-value">{{ eval.participantCount }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quiz Types Section -->
+  <div class="quiz-types-section">
+    <h3 class="section-title">🎯 Types de Quiz - Distribution & Performance</h3>
+    <div class="quiz-grid">
+      <div *ngFor="let quiz of quizTypes" class="quiz-card">
+        <div class="quiz-header">
+          <h4>{{ quiz.name }}</h4>
+          <span class="quiz-count">{{ quiz.count }} quiz</span>
+        </div>
+        <div class="quiz-score">
+          <span class="score-label">Score Moyen:</span>
+          <span class="score-value">{{ quiz.averageScore }}%</span>
+        </div>
+        <div class="quiz-progress">
+          <div 
+            class="quiz-progress-fill" 
+            [style.width.%]="quiz.averageScore">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Enhanced Alerts Section -->
+  <div class="alerts-section">
+    <h3 class="section-title">⚠️ Alertes Intelligentes - Collaborateurs à Risque</h3>
+    <div class="alerts-grid">
+      <div *ngFor="let collaborator of filteredAlertCollaborators" class="alert-card">
+        <div class="alert-header">
+          <span class="collaborator-name">{{ collaborator.name }}</span>
+          <div class="alert-badges">
+            <span class="alert-badge" [ngClass]="collaborator.status">
+              {{ getStatusLabel(collaborator.status) }}
+            </span>
+            <span 
+              class="risk-badge" 
+              [style.background-color]="getRiskLevelColor(collaborator.riskLevel)">
+              {{ getRiskLevelLabel(collaborator.riskLevel) }}
+            </span>
+          </div>
+        </div>
+        
+        <div class="alert-details">
+          <p><strong>Département:</strong> {{ collaborator.department }}</p>
+          <p><strong>Taux de complétion:</strong> {{ collaborator.completionRate }}%</p>
+          <p><strong>Temps passé:</strong> {{ collaborator.timeSpent }}h</p>
+          <p><strong>Score performance:</strong> {{ collaborator.achievementScore }}/100</p>
+          <p><strong>Dernière activité:</strong> {{ getDaysInactive(collaborator.lastActivity) }} jours</p>
+        </div>
+        
+        <div class="alert-actions">
+          <button class="contact-btn" (click)="contactCollaborator(collaborator.id)">
+            📞 Contacter
+          </button>
+          <button class="schedule-btn" (click)="scheduleAudit()">
+            📅 Planifier Suivi
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Enhanced Department Performance Table -->
+  <div class="department-table-section">
+    <h3 class="section-title">📊 Performance Détaillée par Département</h3>
+    <div class="table-container">
+      <table class="performance-table">
+        <thead>
+          <tr>
+            <th>Département</th>
+            <th>Taux Complétion</th>
+            <th>Score Moyen</th>
+            <th>Participation</th>
+            <th>Rétention</th>
+            <th>Formations Internes</th>
+            <th>Satisfaction</th>
+            <th>Total Heures</th>
+            <th>Durée Moyenne</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let dept of departmentData">
+            <td class="department-name">{{ dept.name }}</td>
+            <td class="metric-value">{{ dept.completionRate }}%</td>
+            <td class="metric-value">{{ dept.avgScore }}/100</td>
+            <td class="metric-value">{{ dept.participation }}%</td>
+            <td class="metric-value">{{ dept.retention }}%</td>
+            <td class="metric-value">{{ dept.internalTrainings }}</td>
+            <td class="metric-value">{{ dept.satisfactionRate }}%</td>
+            <td class="metric-value">{{ dept.totalHours }}h</td>
+            <td class="metric-value">{{ dept.averageDuration }}h</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Integration & Tools Section -->
+  <div class="integration-section">
+    <h3 class="section-title">🔗 Intégrations & Outils</h3>
+    <div class="integration-grid">
+      <div class="integration-card">
+        <div class="integration-icon">📧</div>
+        <h4>Interfaçage Outlook</h4>
+        <p>Synchronisation automatique des calendriers de formation</p>
+        <button class="integration-btn">Configurer</button>
+      </div>
+      
+      <div class="integration-card">
+        <div class="integration-icon">🎮</div>
+        <h4>Tests Techniques</h4>
+        <p>Intégration avec CodinGame et autres plateformes</p>
+        <button class="integration-btn">Connecter</button>
+      </div>
+      
+      <div class="integration-card">
+        <div class="integration-icon">📚</div>
+        <h4>LMS External</h4>
+        <p>Connexion avec systèmes LMS externes</p>
+        <button class="integration-btn">Synchroniser</button>
+      </div>
+      
+      <div class="integration-card">
+        <div class="integration-icon">📋</div>
+        <h4>Enquêtes Satisfaction</h4>
+        <p>Génération automatique d'enquêtes post-formation</p>
+        <button class="integration-btn">Activer</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -68,9 +68,9 @@
       <button mat-menu-item>
         <mat-icon class="d-flex align-items-center">person</mat-icon> My Profile
       </button>
-      <button mat-menu-item>
-        <mat-icon class="d-flex align-items-center">person</mat-icon> My Dashboard
-      </button>
+      <button mat-menu-item [routerLink]="'/front-office/progression'">
+    <mat-icon class="d-flex align-items-center">person</mat-icon> My Dashboard
+  </button>
       <div class="p-x-12 m-t-12">
         <button (click)="logout()" mat-stroked-button color="primary" class="w-100">
           Logout

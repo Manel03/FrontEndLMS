@@ -1,0 +1,452 @@
+
+<div class="kpi-manager-container">
+  <!-- Header Section -->
+  <div class="dashboard-header">
+    <div class="header-content">
+      <h1 class="dashboard-title">
+        <span class="title-icon">👨‍💼</span>
+        Tableau de Bord Manager - Gestion d'Équipe
+      </h1>
+      <p class="dashboard-subtitle">
+        Suivi des performances et gestion des collaborateurs
+      </p>
+    </div>
+
+    <div class="header-actions">
+      <button class="action-btn primary" (click)="exportToExcel()">
+        <span class="btn-icon">📊</span>
+        Export Excel
+      </button>
+      <button class="action-btn secondary" (click)="exportToPDF()">
+        <span class="btn-icon">📄</span>
+        Rapport PDF
+      </button>
+      <button class="action-btn warning" 
+              [class.active]="pendingAlerts.length > 0"
+              (click)="setViewMode('alerts')">
+        <span class="btn-icon">⚠️</span>
+        Alertes
+        <span *ngIf="pendingAlerts.length > 0" class="badge">{{ pendingAlerts.length }}</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <div class="dashboard-nav">
+    <button (click)="setViewMode('overview')" [class.active]="viewMode === 'overview'" class="nav-btn">
+      <span class="nav-icon">🏠</span>
+      Vue d'ensemble
+    </button>
+    <button (click)="setViewMode('team-details')" [class.active]="viewMode === 'team-details'" class="nav-btn">
+      <span class="nav-icon">👥</span>
+      Détails Équipe
+    </button>
+    <button (click)="setViewMode('individual')" [class.active]="viewMode === 'individual'" class="nav-btn">
+      <span class="nav-icon">👤</span>
+      Individuel
+    </button>
+    <button (click)="setViewMode('suggestions')" [class.active]="viewMode === 'suggestions'" class="nav-btn">
+      <span class="nav-icon">💡</span>
+      Suggestions IA
+    </button>
+  </div>
+
+  <!-- Team Selection Panel -->
+  <div class="team-selection-panel">
+    <div class="team-controls">
+      <h3>🎯 Sélection d'Équipe</h3>
+      <div class="team-selector">
+        <select [(ngModel)]="selectedTeam" (change)="selectTeam(selectedTeam)" class="team-select">
+          <option value="">-- Choisir une équipe --</option>
+          <option *ngFor="let team of teams" [value]="team.id">
+            {{ team.name }} ({{ team.memberCount }} membres)
+          </option>
+        </select>
+        <button class="toggle-btn" (click)="toggleShowAllTeams()" [class.active]="showAllTeams">
+          {{ showAllTeams ? 'Vue par équipe' : 'Tous les collaborateurs' }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Settings Panel -->
+    <div class="settings-panel">
+      <h4>⚙️ Préférences d'Alertes</h4>
+      <div class="settings-grid">
+        <label class="setting-item">
+          <input type="checkbox" [(ngModel)]="alertsEnabled">
+          <span>Alertes d'inactivité prolongée</span>
+        </label>
+        <label class="setting-item">
+          <input type="checkbox" [(ngModel)]="individualScoresVisible">
+          <span>Scores individuels visibles</span>
+        </label>
+        <label class="setting-item">
+          <input type="checkbox" [(ngModel)]="mandatoryTrainingNotifications">
+          <span>Notifications formations obligatoires</span>
+        </label>
+        <label class="setting-item">
+          <input type="checkbox" [(ngModel)]="autoSuggestions">
+          <span>Suggestions automatiques de formations</span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Vue d'ensemble -->
+  <div *ngIf="viewMode === 'overview'" class="overview-view">
+    <!-- KPI Summary Cards -->
+    <div class="kpi-summary-grid">
+      <div *ngFor="let kpi of managerKPIs" class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-icon">{{ kpi.icon }}</span>
+          <div class="kpi-trend">
+            <span class="trend-value" [class]="'trend-' + kpi.trend">
+              {{ kpi.trendValue > 0 ? '+' : '' }}{{ kpi.trendValue }}%
+            </span>
+          </div>
+        </div>
+        <div class="kpi-content">
+          <h3>{{ kpi.label }}</h3>
+          <div class="kpi-value">{{ kpi.value }}{{ kpi.unit }}</div>
+          <div class="kpi-target">Objectif: {{ kpi.target }}{{ kpi.unit }}</div>
+          <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="(kpi.value / kpi.target) * 100"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Team Overview Stats -->
+    <div class="team-overview-stats">
+      <div class="stat-card">
+        <h3>{{ teamAverageScore }}/100</h3>
+        <p>Score Moyen {{ selectedTeamData?.name || 'Global' }}</p>
+      </div>
+      <div class="stat-card">
+        <h3>{{ teamAverageEngagement }}%</h3>
+        <p>Engagement Moyen</p>
+      </div>
+      <div class="stat-card">
+        <h3>{{ filteredCollaborators.length }}</h3>
+        <p>Collaborateurs Actifs</p>
+      </div>
+      <div class="stat-card warning">
+        <h3>{{ atRiskCount }}</h3>
+        <p>À Risque</p>
+      </div>
+      <div class="stat-card">
+        <h3>{{ totalTrainingHours }}h</h3>
+        <p>Total Heures Formation</p>
+      </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="charts-section">
+      <div class="charts-grid">
+        <div class="chart-container">
+          <div echarts [options]="teamPerformanceChart" class="chart"></div>
+        </div>
+        <div class="chart-container">
+          <div echarts [options]="engagementTrendChart" class="chart"></div>
+        </div>
+        <div class="chart-container">
+          <div echarts [options]="individualComparisonChart" class="chart"></div>
+        </div>
+        <div class="chart-container">
+          <div echarts [options]="timeSpentChart" class="chart"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Vue Détails Équipe -->
+  <div *ngIf="viewMode === 'team-details'" class="team-details-view">
+    <div class="team-info-header" *ngIf="selectedTeamData">
+      <h3>📊 {{ selectedTeamData.name }}</h3>
+      <p>{{ selectedTeamData.memberCount }} membres • Score moyen: {{ selectedTeamData.averageScore }}/100</p>
+    </div>
+
+    <!-- Collaborators Table -->
+    <div class="collaborators-table-section">
+      <h3 class="section-title">👥 Liste des Collaborateurs</h3>
+      <div class="table-container">
+        <table class="collaborators-table">
+          <thead>
+            <tr>
+              <th>Collaborateur</th>
+              <th *ngIf="individualScoresVisible">Score Individuel</th>
+              <th>Engagement</th>
+              <th>Temps Formation</th>
+              <th>Complétion</th>
+              <th>Conformité</th>
+              <th>Objectifs</th>
+              <th>Statut</th>
+              <th>Dernière Activité</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let collab of filteredCollaborators">
+              <td class="collaborator-info">
+                <div class="collab-avatar">{{ collab.avatar }}</div>
+                <div class="collab-details">
+                  <strong>{{ collab.name }}</strong>
+                  <small>{{ collab.position }}</small>
+                </div>
+              </td>
+              <td *ngIf="individualScoresVisible" class="score-cell">
+                <div class="score-value">{{ collab.individualScore }}/100</div>
+                <div class="score-bar">
+                  <div class="score-fill" [style.width.%]="collab.individualScore"></div>
+                </div>
+              </td>
+              <td class="engagement-cell">
+                <div class="engagement-value">{{ collab.engagementScore }}%</div>
+                <div class="engagement-indicator" [style.background-color]="
+                  collab.engagementScore >= 80 ? '#27ae60' : 
+                  collab.engagementScore >= 60 ? '#f39c12' : '#e74c3c'
+                "></div>
+              </td>
+              <td class="time-cell">{{ collab.trainingTimeSpent }}h</td>
+              <td class="completion-cell">{{ collab.completionRate }}%</td>
+              <td class="compliance-cell">
+                <span class="compliance-ratio" 
+                      [style.color]="getComplianceRate(collab) === 100 ? '#27ae60' : '#e74c3c'">
+                  {{ collab.mandatoryTrainingsCompleted }}/{{ collab.mandatoryTrainingsTotal }}
+                </span>
+              </td>
+              <td class="objectives-cell">
+                <span class="objectives-ratio">
+                  {{ collab.objectivesAchieved }}/{{ collab.objectivesTotal }}
+                </span>
+                <small>({{ getObjectiveRate(collab) }}%)</small>
+              </td>
+              <td class="status-cell">
+                <span class="status-badge" [style.background-color]="getStatusColor(collab.status)">
+                  {{ collab.status }}
+                </span>
+              </td>
+              <td class="activity-cell">
+                <span [style.color]="getDaysInactive(collab.lastActivity) > 7 ? '#e74c3c' : '#2c3e50'">
+                  {{ getDaysInactive(collab.lastActivity) }} jours
+                </span>
+              </td>
+              <td class="actions-cell">
+                <button class="action-btn-small" (click)="selectCollaborator(collab.id)">
+                  👁️ Détails
+                </button>
+                <button class="action-btn-small" (click)="contactCollaborator(collab.id)">
+                  📞 Contact
+                </button>
+                <button class="action-btn-small" (click)="scheduleOneOnOne(collab.id)">
+                  📅 RDV
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Training Completion Chart -->
+    <div class="completion-chart-section">
+      <div class="chart-container">
+        <div echarts [options]="trainingCompletionChart" class="chart"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Vue Individuelle -->
+  <div *ngIf="viewMode === 'individual'" class="individual-view">
+    <div class="collaborator-selector" *ngIf="!selectedCollaborator">
+      <h3>Sélectionner un collaborateur pour voir ses détails</h3>
+      <div class="collaborator-cards">
+        <div *ngFor="let collab of filteredCollaborators" 
+             class="collaborator-card"
+             (click)="selectCollaborator(collab.id)">
+          <div class="card-avatar">{{ collab.avatar }}</div>
+          <h4>{{ collab.name }}</h4>
+          <p>{{ collab.position }}</p>
+          <div class="card-score">{{ collab.individualScore }}/100</div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="selectedCollaboratorData" class="individual-details">
+      <div class="individual-header">
+        <div class="collab-info">
+          <div class="collab-avatar-large">{{ selectedCollaboratorData.avatar }}</div>
+          <div class="collab-details">
+            <h2>{{ selectedCollaboratorData.name }}</h2>
+            <p>{{ selectedCollaboratorData.position }} - {{ selectedCollaboratorData.department }}</p>
+            <p>{{ selectedCollaboratorData.email }}</p>
+          </div>
+        </div>
+        <button class="back-btn" (click)="selectedCollaborator = ''">← Retour</button>
+      </div>
+
+      <!-- Individual KPIs -->
+      <div class="individual-kpis">
+        <div class="kpi-card-small">
+          <h4>Score Performance</h4>
+          <div class="kpi-value-large">{{ selectedCollaboratorData.individualScore }}/100</div>
+        </div>
+        <div class="kpi-card-small">
+          <h4>Engagement</h4>
+          <div class="kpi-value-large">{{ selectedCollaboratorData.engagementScore }}%</div>
+        </div>
+        <div class="kpi-card-small">
+          <h4>Temps Formation</h4>
+          <div class="kpi-value-large">{{ selectedCollaboratorData.trainingTimeSpent }}h</div>
+        </div>
+        <div class="kpi-card-small">
+          <h4>Complétion</h4>
+          <div class="kpi-value-large">{{ selectedCollaboratorData.completionRate }}%</div>
+        </div>
+      </div>
+
+      <!-- Progress History Chart -->
+      <div class="progress-history-section">
+        <div class="chart-container">
+          <div echarts [options]="progressHistoryChart" class="chart"></div>
+        </div>
+      </div>
+
+      <!-- Current Trainings -->
+      <div class="current-trainings-section">
+        <h3>📚 Formations en Cours</h3>
+        <div class="training-list">
+          <div *ngFor="let training of selectedCollaboratorData.currentTrainings" class="training-item">
+            <span class="training-icon">📖</span>
+            <span class="training-name">{{ training }}</span>
+            <span class="training-status">En cours</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Upcoming Deadlines -->
+      <div class="deadlines-section" *ngIf="selectedCollaboratorData.upcomingDeadlines.length > 0">
+        <h3>⏰ Échéances Prochaines</h3>
+        <div class="deadline-list">
+          <div *ngFor="let deadline of selectedCollaboratorData.upcomingDeadlines" 
+               class="deadline-item"
+               [class.overdue]="deadline.status === 'overdue'">
+            <div class="deadline-info">
+              <strong>{{ deadline.trainingName }}</strong>
+              <small>{{ deadline.dueDate | date:'dd/MM/yyyy' }}</small>
+            </div>
+            <span class="deadline-priority" [class]="deadline.priority">
+              {{ deadline.priority }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Vue Alertes -->
+  <div *ngIf="viewMode === 'alerts'" class="alerts-view">
+    <div class="alerts-header">
+      <h3>⚠️ Centre d'Alertes</h3>
+      <div class="alerts-summary">
+        <span class="alert-count high">{{ highPriorityAlerts.length }} priorité haute</span>
+        <span class="alert-count total">{{ pendingAlerts.length }} total</span>
+      </div>
+    </div>
+
+    <div class="alerts-grid">
+      <div *ngFor="let alert of alerts" 
+           class="alert-card"
+           [class.acknowledged]="alert.acknowledged"
+           [style.border-left-color]="getSeverityColor(alert.severity)">
+        <div class="alert-header">
+          <span class="alert-type-icon">
+            {{ alert.type === 'inactivity' ? '😴' : 
+               alert.type === 'missing-training' ? '📚' : 
+               alert.type === 'deadline' ? '⏰' : '⚠️' }}
+          </span>
+          <div class="alert-info">
+            <h4>{{ alert.collaboratorName }}</h4>
+            <span class="alert-date">{{ alert.date | date:'dd/MM/yyyy HH:mm' }}</span>
+          </div>
+          <span class="alert-severity" [style.background-color]="getSeverityColor(alert.severity)">
+            {{ alert.severity }}
+          </span>
+        </div>
+        
+        <div class="alert-content">
+          <p>{{ alert.message }}</p>
+        </div>
+        
+        <div class="alert-actions">
+          <button *ngIf="!alert.acknowledged" 
+                  class="acknowledge-btn" 
+                  (click)="acknowledgeAlert(alert.id)">
+            ✅ Acquitter
+          </button>
+          <button class="contact-btn" (click)="contactCollaborator(alert.collaboratorId)">
+            📞 Contacter
+          </button>
+          <button class="dismiss-btn" (click)="dismissAlert(alert.id)">
+            ❌ Ignorer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Vue Suggestions IA -->
+  <div *ngIf="viewMode === 'suggestions'" class="suggestions-view">
+    <div class="suggestions-header">
+      <h3>🤖 Suggestions Intelligentes de Formation</h3>
+      <p>Recommandations automatiques basées sur l'analyse des performances</p>
+    </div>
+
+    <div class="suggestions-grid">
+      <div *ngFor="let suggestion of trainingSuggestions" class="suggestion-card">
+        <div class="suggestion-header">
+          <div class="suggestion-info">
+            <h4>{{ suggestion.trainingName }}</h4>
+            <div class="suggestion-priority">
+              <span class="priority-label">Priorité:</span>
+              <div class="priority-bar">
+                <div class="priority-fill" [style.width.%]="suggestion.priority"></div>
+              </div>
+              <span class="priority-value">{{ suggestion.priority }}%</span>
+            </div>
+          </div>
+          <div class="suggestion-duration">
+            <span class="duration-label">Durée estimée</span>
+            <span class="duration-value">{{ suggestion.estimatedDuration }}h</span>
+          </div>
+        </div>
+        
+        <div class="suggestion-content">
+          <p class="suggestion-description">{{ suggestion.description }}</p>
+          <div class="suggestion-reason">
+            <strong>Recommandé car:</strong>
+            <p>{{ suggestion.reason }}</p>
+          </div>
+          
+          <div class="recommended-for">
+            <h5>👥 Recommandé pour:</h5>
+            <div class="recommended-list">
+              <span *ngFor="let collabId of suggestion.recommendedFor" class="recommended-name">
+                {{ getCollaboratorName(collabId) }}
+              </span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="suggestion-actions">
+          <button class="accept-btn" (click)="acceptSuggestion(suggestion.id)">
+            ✅ Assigner cette Formation
+          </button>
+          <button class="dismiss-btn" (click)="dismissSuggestion(suggestion.id)">
+            ❌ Pas Maintenant
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
