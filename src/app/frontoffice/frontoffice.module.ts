@@ -35,6 +35,11 @@ import { SharedModule } from '../shared/shared.module';
 import { MotifDialogComponent } from './motif-dialog/motif-dialog.component';
 import { HistoriqueformationsComponent } from './historiqueformations/historiqueformations.component';
 import { ProgressionComponent } from './progression/progression.component';
+import { KpiCollaborateurComponent } from './KPI/kpi-collaborateur/kpi-collaborateur.component';
+import { KpiManagerComponent } from './KPI/kpi-manager/kpi-manager.component';
+import { KpiRhComponent } from './KPI/kpi-rh/kpi-rh.component';
+import { kpiComponent } from './KPI/kpi.component';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 
 @NgModule({
@@ -55,9 +60,9 @@ import { ProgressionComponent } from './progression/progression.component';
     MotifDialogComponent,
     HistoriqueformationsComponent,
     ProgressionComponent,
-    
-    
-    
+    KpiCollaborateurComponent,
+    KpiManagerComponent,
+    kpiComponent,
   ],
   
   imports: [
@@ -74,12 +79,15 @@ import { ProgressionComponent } from './progression/progression.component';
       MaterialModule,
       MatFormFieldModule, // Add Angular Material Modules
       MatInputModule,
+       NgxEchartsModule.forRoot({
+      echarts: () => import('echarts'),
+    }),
       DialogModule,
       MatCardModule,
       MatButtonModule,
       SplitButtonModule,
     CommonModule,
-    FrontofficeRoutingModule
+    FrontofficeRoutingModule,KpiRhComponent
   ]
 })
 export class FrontofficeModule { }

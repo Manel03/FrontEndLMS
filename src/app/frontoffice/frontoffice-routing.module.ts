@@ -10,90 +10,98 @@ import { ShowformationdetailsofficeComponent } from './Formations/showformationd
 import { HistoriqueDemandeComponent } from './historique-demande/historique-demande.component';
 import { HistoriqueformationsComponent } from './historiqueformations/historiqueformations.component';
 import { ProgressionComponent } from './progression/progression.component';
-import { kpiComponent } from './KPI/kpi.component';
 
+import { kpiComponent } from './KPI/kpi.component';
+import { KpiRhComponent } from './KPI/kpi-rh/kpi-rh.component';
+import { KpiManagerComponent } from './KPI/kpi-manager/kpi-manager.component';
+import { KpiCollaborateurComponent } from './KPI/kpi-collaborateur/kpi-collaborateur.component';
 
 const routes: Routes = [
-
   {
     path: 'homepage',
     component: HomeComponent,
-    data: {
-      title: 'home page',
-    },
+    data: { title: 'home page' },
   },
   {
     path: 'homelms',
     component: HomeformationComponent,
-    data: {
-      title: 'home lms',
-    },
+    data: { title: 'home lms' },
   },
   {
     path: 'formation',
     component: FormationComponent,
-    data: {
-      title: 'home lms',
-    },
+    data: { title: 'formation' },
   },
-   {
+  {
     path: 'dashboard',
-    component: kpiComponent,
-    data: {
-      title: 'dashboard lms',
-    },
+    component: kpiComponent, // accès via /front-office/dashboard
+    data: { title: 'dashboard lms' },
+  },
+  {
+    path: 'kpi-rh',
+    component: KpiRhComponent,
+    data: { title: 'KPI RH' },
+  },
+  {
+    path: 'kpi-manager',
+    component: KpiManagerComponent,
+    data: { title: 'KPI manager' },
+  },
+  {
+    path: 'kpi-collaborateur',
+    component: KpiCollaborateurComponent,
+    data: { title: 'KPI collaborateur' },
   },
   {
     path: 'formations',
     component: FormationofficeComponent,
-    data: {
-      title: 'home lms',
-    },
+    data: { title: 'formations' },
   },
-   {
+  {
     path: 'formationshistorique',
     component: HistoriqueformationsComponent,
-    data: {
-      title: 'home lms',
-    },
+    data: { title: 'formations historique' },
   },
   {
     path: 'historique',
     component: HistoriqueComponent,
-    data: {
-      title: 'historique lms',
-    },
+    data: { title: 'historique lms' },
   },
   {
     path: 'actualite',
     component: ActualiteComponent,
-    data: {
-      title: 'actualite lms',
-    },
+    data: { title: 'actualite lms' },
   },
   {
     path: 'demande',
     component: HistoriqueDemandeComponent,
-    data: {
-      title: 'demande lms',
-    },
+    data: { title: 'demande lms' },
   },
-    {
+  {
     path: 'progression',
     component: ProgressionComponent,
-    data: {
-      title: 'progression lms',
-    },
+    data: { title: 'progression lms' },
   },
-    {
-      path: 'formation-detail/:id',
-      component: ShowformationdetailsofficeComponent
-  
-    }
+  {
+    path: 'formation-detail/:id',
+    component: ShowformationdetailsofficeComponent,
+    data: { title: 'formation details' },
+  },
+  // 🔹 Redirection par défaut
+  {
+    path: '',
+    redirectTo: 'homepage',
+    pathMatch: 'full',
+  },
+  // 🔹 Gestion des routes non trouvées
+  {
+    path: '**',
+    redirectTo: 'homepage',
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class FrontofficeRoutingModule { }
+export class FrontofficeRoutingModule {}

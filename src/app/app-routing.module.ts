@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BlankComponent } from './layouts/blank/blank.component';
 import { FullComponent } from './layouts/full/full.component';
+import { KpiRhComponent } from './frontoffice/KPI/kpi-rh/kpi-rh.component';
 
 const routes: Routes = [
   {
@@ -24,8 +25,6 @@ const routes: Routes = [
         loadChildren: () =>
           import('./backoffice/backoffice.module').then((m) => m.BackofficeModule),
       },
-
-     
       {
         path: 'ui-components',
         loadChildren: () =>
@@ -48,6 +47,10 @@ const routes: Routes = [
         path: '',
         loadChildren: () =>
           import('./frontoffice/frontoffice.module').then((m) => m.FrontofficeModule),
+      },
+      {
+            path: './front-office/kpi-rh-standalone',
+            component: KpiRhComponent
       }
     ]
     
